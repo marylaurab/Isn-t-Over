@@ -21,4 +21,6 @@ const getAllGenres = async () => {
   }
 };
 
-getAllGenres()
+module.exports={
+  getAllGenres
+}

@@ -115,3 +115,10 @@ const createVideogame = async (
     throw Error(error);
   }
 };
+
+module.exports={
+  getAllGames,
+  getAllByName,
+  getGameById,
+  createVideogame
+}
