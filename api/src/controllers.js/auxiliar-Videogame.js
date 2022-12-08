@@ -15,6 +15,7 @@ const getApiGames = async () => {
               apiGames.push({
                 id: game.id,
                 title: game.name,
+                description: game.description,
                 release: game.released,
                 image: game.background_image,
                 rating: game.rating,
@@ -58,6 +59,7 @@ const getApiGames = async () => {
               gamesApiByName.push({
                 id: game.id,
                 title: game.name,
+                description: game.description,
                 release: game.released,
                 image: game.background_image,
                 rating: game.rating,
