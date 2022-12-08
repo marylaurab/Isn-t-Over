@@ -9,7 +9,7 @@ module.exports = (sequelize) => {
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
-    name: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -20,6 +20,7 @@ module.exports = (sequelize) => {
     release: {
       type: DataTypes.DATEONLY,
       defaultValue: DataTypes.NOW,
+    
     },
     rating: {
       type: DataTypes.DECIMAL,
@@ -29,14 +30,14 @@ module.exports = (sequelize) => {
         max: 5,
       },
     },
-    plataforms: {
+    image:{
+      type:DataTypes.STRING,
+     
+      defaultValue: "https://i.pinimg.com/736x/58/fe/9b/58fe9bb8e043ebf9a7e5e129c43ac97c.jpg"
+    },
+    platforms: {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
-    },
-    createDB: {
-      type: DataTypes.BOOLEAN,
-      //allowNull: false,
-      defaultValue: true,
-    },
+    }
   });
 };
