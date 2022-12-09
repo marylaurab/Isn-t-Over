@@ -8,10 +8,10 @@ const {
 } = require("../controllers.js/videogController.js");
 
 router.get("/", async (req, res) => {
-  const {nameGame}=req.query;
+  const { nameGame } = req.query;
   try {
-    if(nameGame) {
-      const gamesByName=await getAllByName(nameGame)
+    if (nameGame) {
+      const gamesByName = await getAllByName(nameGame);
       return res.json(gamesByName);
     }
     const videogames = await getAllGames();
@@ -26,6 +26,25 @@ router.get("/:id", async (req, res) => {
   try {
     const gameById = await getGameById(id);
     res.json(gameById);
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
+
+router.post("/", async (req, res) => {
+  const { title, description, release, image, rating, platforms, genres } =
+    req.body;
+  try {
+    const newGame = await createVideogame(
+      title,
+      description,
+      release,
+      image,
+      rating,
+      platforms,
+      genres
+    );
+    res.json(newGame);
   } catch (error) {
     res.status(404).send(error.message);
   }
