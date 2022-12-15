@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 const { Genre } = require("../db.js");
-
+const {API_KEY} =process.env
 const getGenresDb = async () => {
   try {
     let genresDb = await Genre.findAll({
@@ -15,7 +15,7 @@ const getGenresApi = async () => {
   try {
     const genresApi =[] 
     await fetch(
-      `https://api.rawg.io/api/genres?key=0bf28af6c8e545f1a7f19fcbaa63d25e`
+      `https://api.rawg.io/api/genres?key=${API_KEY}`
     ).then((response) => response.json()).then((data)=>{
         data.results?.forEach(g => {
             genresApi.push(g.name)
@@ -26,7 +26,7 @@ const getGenresApi = async () => {
     throw Error(error.message);
   }
 };
-getGenresApi()
+
 module.exports = {
   getGenresDb,
   getGenresApi,

@@ -8,7 +8,7 @@ const genreMiddleware=require('../routes/routes-genre.js')
 const router = Router();
 router.use('/videogames', videogameMiddleware)
 router.use('/genres', genreMiddleware)
-//---->>>>>>aca iria la ruta '/' base de llegada res.send('PI') ejemplo.
+
 
 
 

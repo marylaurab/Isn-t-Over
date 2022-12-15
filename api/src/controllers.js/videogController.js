@@ -7,7 +7,7 @@ const {
   getApiByName,
   getDbByName,
 } = require("./auxiliar-Videogame.js");
-//const { API_KEY } = process.env; NO ME HA FUNCIONADO AUN
+const { API_KEY } = process.env
 
 const getAllGames = async () => {
   try {
@@ -15,7 +15,6 @@ const getAllGames = async () => {
     let fromApi = await getApiGames();
     let fromDb = await getDbGames();
     allGames = [...fromApi, ...fromDb];
-    console.log('ALL GAMES LENGTH:',allGames.length)
     return allGames;
   } catch (error) {
     throw Error(error.message);
@@ -64,25 +63,26 @@ const getGameById = async (id) => {
     try {
       let detailsApi;
       let aux = await fetch(
-        `https://api.rawg.io/api/games/${id}?key=0bf28af6c8e545f1a7f19fcbaa63d25e`
+        `https://api.rawg.io/api/games/${id}?key=${API_KEY}`
       ).then((response) => response.json());
       detailsApi = {
         id: aux.id,
         title: aux.name,
-        description: aux.description, //FALTA SACAR \n
+        description: aux.description.replace(/<[^>]*>?/g, '').replace(/(\r\n|\n|\r)/gm, ''),
         release: aux.released,
         image: aux.background_image,
         rating: aux.rating,
         platforms: aux.parent_platforms?.map((p) => p.platform.name),
         genres: aux.genres?.map((g) => g.name),
       };
-      console.log('FROM API:', detailsApi)
+      // console.log('FROM API:', detailsApi)
       return detailsApi;
     } catch (error) {
       throw Error(error.message);
     }
   }
 };
+getGameById("6")
 const createVideogame = async (
   title,
   description,
