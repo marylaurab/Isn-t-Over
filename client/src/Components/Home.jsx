@@ -1,41 +1,29 @@
 import { Link } from "react-router-dom";
-import CardGame from "./CardGame";
-import Pagination from "./Pagination";
-import SearchBar from "./SearchBar";
 import { useEffect, useState } from "react";
 import { getAllVideogames } from "../Redux/actions/index.js";
 import { useDispatch, useSelector } from "react-redux";
+import CardGame from "./CardGame";
+import Pagination from "./Pagination";
+import SearchBar from "./SearchBar";
 
 export default function Home() {
-  const [position, setPosition] = useState({ firstOne: 0, LastOne: 15 });
   const dispatch = useDispatch();
   const gamesToRender = useSelector((state) => state.gamesToRender);
+  const [perPage, setPerPage] = useState(15);
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalGames = gamesToRender.length;
+  const lastIndex = currentPage * perPage;
+  const firstIndex = lastIndex - perPage;
+
   useEffect(() => {
     dispatch(getAllVideogames());
   }, []);
 
-  const next = () => {
-    if (position.LastOne >= gamesToRender.length) return;
-    setPosition({
-      firstOne: position.firstOne + 15,
-      LastOne: position.LastOne + 15,
-    });
-  };
-
-  const prev = () => {
-    if (position.firstOne === 0) return;
-    setPosition({
-      firstOne: position.firstOne - 15,
-      LastOne: position.LastOne - 15,
-    });
-  };
-
   return gamesToRender && gamesToRender.length > 0 ? (
     <div>
       <SearchBar />
-      {gamesToRender.slice(position.firstOne, position.LastOne).map((g) => (
+      {gamesToRender.slice(firstIndex, lastIndex).map((g) => (
         <div key={g.id}>
-          {/*No me toma el key */}
           <Link to={`/videogames/${g.id}`}>
             <CardGame
               image={g.image}
@@ -46,7 +34,12 @@ export default function Home() {
           </Link>
         </div>
       ))}
-      <Pagination prev={prev} next={next} />
+      <Pagination
+        perPage={perPage}
+        totalGames={totalGames}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+      />
     </div>
   ) : (
     <img src="https://www.globalreporting.org/styles/assets/images/circle-loading-gif.gif" />

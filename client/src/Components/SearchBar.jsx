@@ -1,15 +1,20 @@
 import { useState } from "react";
 
-export default function SearchBar(){
-const [nameGame,setNameGame] =useState("")
+export default function SearchBar() {
+  const [nameGame, setNameGame] = useState("");
 
-const changeInput=(e)=>{
-    setNameGame(e)
-}
-return (
+  const changeHandler = (e) => {
+    setNameGame(e.target.value);
+  };
+  return (
     <div>
-        <input type='text' placeholder='search game'></input>
-        <button>search</button>
+      <input
+        type="text"
+        placeholder="search game"
+        value={nameGame}
+        onChange={(e) => changeHandler(e)}
+      ></input>
+      <button>search</button>
     </div>
-)
+  );
 }
