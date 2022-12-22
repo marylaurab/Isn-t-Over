@@ -5,19 +5,27 @@ import { useDispatch, useSelector } from "react-redux";
 import CardGame from "./CardGame";
 import Pagination from "./Pagination";
 import SearchBar from "./SearchBar";
+import { setAuxPaginate, setPages, setSubPages } from "../Redux/actions/index";
 
 export default function Home() {
   const dispatch = useDispatch();
   const gamesToRender = useSelector((state) => state.gamesToRender);
-  const [perPage, setPerPage] = useState(15);
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalGames = gamesToRender.length;
+  const perPage = useSelector((state) => state.perPage);
+  const currentPage = useSelector((state) => state.currentPage);
+  const totalPagesToRender = useSelector((state) => state.totalPagesToRender);
+  const perSubPages = useSelector((state) => state.perSubPages);
   const lastIndex = currentPage * perPage;
   const firstIndex = lastIndex - perPage;
 
   useEffect(() => {
     dispatch(getAllVideogames());
   }, []);
+
+  useEffect(() => {
+    dispatch(setAuxPaginate());
+    dispatch(setPages());
+    dispatch(setSubPages());
+  }, [gamesToRender, perPage, perSubPages]);
 
   return gamesToRender && gamesToRender.length > 0 ? (
     <div>
@@ -35,10 +43,8 @@ export default function Home() {
         </div>
       ))}
       <Pagination
-        perPage={perPage}
-        totalGames={totalGames}
-        setCurrentPage={setCurrentPage}
         currentPage={currentPage}
+        totalPagesToRender={totalPagesToRender}
       />
     </div>
   ) : (

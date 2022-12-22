@@ -1,75 +1,58 @@
-import { useState } from "react";
-
-export default function Pagination({
-  perPage,
-  totalGames,
-  setCurrentPage,
-  currentPage,
-}) {
-  const [perSubPages, setPerSubPages] = useState(3);
-  const totalPagesToRender = Math.ceil(totalGames / perPage);
-  const conditional = Math.ceil(totalPagesToRender / perSubPages);
-  const pages = [];
-  
-  for (let i = 1; i <= totalPagesToRender; i++) {
-    pages.push(i);
-  }
-  
-  const [currentSubPage, setCurrentSubPage] = useState(1);
-  let j = 0;
-  let k = 1;
-  let l = 2;
-  const minLimit = 0;
-  const maxLimit = 3;
-  const [renderSubPages, setRenderSubPages] = useState([
-    pages[j],
-    pages[k],
-    pages[l],
-  ]);
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  prevPage,
+  nxtPage,
+  specificPage,
+  prevSubPages,
+  nxtSubPages,
+  setSubPages,
+} from "../Redux/actions/index";
+export default function Pagination({ currentPage, totalPagesToRender }) {
+  const dispatch = useDispatch();
+  const currentSubPage = useSelector((state) => state.currentSubPage);
+  const indexes = useSelector((state) => state.indexes);
+  const conditional = useSelector((state) => state.conditional);
+  const renderSubPages = useSelector((state) => state.renderSubPages);
+  useEffect(() => {
+    dispatch(setSubPages());
+  }, [indexes]);
 
   const previosPage = () => {
     if (currentPage === 1) return;
-    setCurrentPage(currentPage - 1);
+    dispatch(prevPage());
   };
   const nextPage = () => {
-    if (currentPage > totalPagesToRender) return;
-    setCurrentPage(currentPage + 1);
+    if (currentPage === totalPagesToRender) return;
+    dispatch(nxtPage());
   };
   const onSpecificPage = (page) => {
-    setCurrentPage(page);
+    dispatch(specificPage(page));
   };
   const previousSubPages = () => {
     if (currentSubPage === 1) return;
-    setRenderSubPages([
-      pages[j - perSubPages],
-      pages[k - perSubPages],
-      pages[l - perSubPages],
-    ]);
-    setCurrentSubPage(currentSubPage - 1);
+    dispatch(prevSubPages());
   };
   const nextSubPages = () => {
     if (conditional === currentSubPage) return;
-    if(pages[j + perSubPages]===pages[pages.length-1]) {
-      setRenderSubPages([
-        pages[j + perSubPages]
-      ]); 
-      return; 
-    }
-    setRenderSubPages([
-      pages[j + perSubPages],
-      pages[k + perSubPages],
-      pages[l + perSubPages],
-    ]);
-    setCurrentSubPage(currentSubPage + 1);
+    // if(pages[j + perSubPages]===pages[pages.length-1]) {
+    //   setRenderSubPages([
+    //     pages[j + perSubPages]
+    //   ]);
+    //   return;
+    // }
+    dispatch(nxtSubPages());
   };
   return (
     <div>
       <button onClick={previousSubPages}>{"<<"}</button>
       <button onClick={previosPage}>Prev</button>
       <ul>
-        {renderSubPages.slice(minLimit, maxLimit).map((p) => (
+        {renderSubPages.map((p) => (
           <li key={p}>
-            <button onClick={() => onSpecificPage(p)} key={p}>{p}</button>
+            <button onClick={() => onSpecificPage(p)} key={p}>
+              {p}
+            </button>
           </li>
         ))}
       </ul>
