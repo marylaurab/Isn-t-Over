@@ -7,6 +7,8 @@ import {
   prevSubPages,
   nxtSubPages,
   setSubPages,
+  setNextPivot,
+  setPrevPivot
 } from "../Redux/actions/index";
 export default function Pagination({ currentPage, totalPagesToRender }) {
   const dispatch = useDispatch();
@@ -20,10 +22,20 @@ export default function Pagination({ currentPage, totalPagesToRender }) {
 
   const previosPage = () => {
     if (currentPage === 1) return;
+    if (currentPage === renderSubPages[0]) {
+      dispatch(prevSubPages());
+      dispatch(setPrevPivot())
+      return;
+    }
     dispatch(prevPage());
   };
   const nextPage = () => {
     if (currentPage === totalPagesToRender) return;
+    if (currentPage === renderSubPages[renderSubPages.length - 1]) {
+      dispatch(nxtSubPages()); //puede q esto tenga q ser otra funcion q haga lo mismo + cambiar el currentpage
+      dispatch(setNextPivot())
+      return;
+    }
     dispatch(nxtPage());
   };
   const onSpecificPage = (page) => {
@@ -32,6 +44,7 @@ export default function Pagination({ currentPage, totalPagesToRender }) {
   const previousSubPages = () => {
     if (currentSubPage === 1) return;
     dispatch(prevSubPages());
+    dispatch(setNextPivot())
   };
   const nextSubPages = () => {
     if (conditional === currentSubPage) return;
@@ -42,6 +55,7 @@ export default function Pagination({ currentPage, totalPagesToRender }) {
     //   return;
     // }
     dispatch(nxtSubPages());
+    dispatch(setNextPivot())
   };
   return (
     <div>

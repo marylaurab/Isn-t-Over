@@ -51,26 +51,3 @@ export default function Home() {
     <img src="https://www.globalreporting.org/styles/assets/images/circle-loading-gif.gif" />
   );
 }
-// export class Home extends React.Component {
-//   constructor(props) {
-//     super(props);
-//   }
-//   componentDidMount() {
-//     this.props.getAllVideogames();
-//   }
-//   render() {
-//     return(<div>hola</div>);
-//   }
-// }
-// export function mapStateToProps(state) {
-//   return {
-//     videogames: state.allVideogames,
-//   };
-// }
-// export function mapDispatchToPros(dispatch) {
-//   return {
-//     getAllVideogames: () => dispatch(getAllVideogames()),
-//   };
-// }
-
-// export default connect(mapStateToProps, mapDispatchToPros)(Home);

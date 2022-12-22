@@ -8,6 +8,8 @@ export const NEXT_PAGE = "NEXT_PAGE";
 export const ON_SPECIFIC_PAGE = "ON_SPECIFIC_PAGE";
 export const PREV_SUBPAGE = "PREV_SUBPAGE";
 export const NEXT_SUBPAGE = "NEXT_SUBPAGE";
+export const SET_NEXTPIVOT="SET_NEXTPIVOT";
+export const SET_PREVPIVOT="SET_PREVPIVOT"
 // export const GET_BY_NAME = "GET_BY_NAME";
 // export const SET_CURRENT_PAGE="SET_CURRENT_PAGE"
 
@@ -33,6 +35,16 @@ export const setSubPages = () => {
     type: SET_SUBPAGES,
   };
 };
+export const setNextPivot=()=>{
+  return {
+    type: SET_NEXTPIVOT
+  }
+}
+export const setPrevPivot=()=>{
+  return{
+    type:SET_PREVPIVOT
+  }
+}
 export const prevPage = () => {
   return {
     type: PREV_PAGE,

@@ -2,6 +2,8 @@ import {
   GET_ALL_VIDEOGAMES,
   SET_AUX_PAGINATE,
   SET_PAGES,
+  SET_NEXTPIVOT,
+  SET_PREVPIVOT,
   SET_SUBPAGES,
   PREV_PAGE,
   NEXT_PAGE,
@@ -103,6 +105,18 @@ export const rootReducer = (state = initialState, action) => {
           l: state.indexes.l + state.perSubPages,
         },
         currentSubPage: state.currentSubPage + action.payload,
+      };
+    }
+    case SET_NEXTPIVOT: {
+      return {
+        ...state,
+        currentPage: state.pages[state.indexes.j],
+      };
+    }
+    case SET_PREVPIVOT: {
+      return {
+        ...state,
+        currentPage: state.pages[state.indexes.l],
       };
     }
     default:
