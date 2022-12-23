@@ -12,6 +12,8 @@ export const SET_NEXTPIVOT = "SET_NEXTPIVOT";
 export const SET_PREVPIVOT = "SET_PREVPIVOT";
 export const ALL_BY_NAME = "ALL_BY_NAME";
 export const INPUT_SEARCHBAR="INPUT_SEARCHBAR";
+export const RESET_GAMESTORENDER="RESET_GAMESTORENDER";
+export const FETCHING="FETCHING"
 
 export const getAllVideogames = () => {
   return async function (dispatch) {
@@ -82,9 +84,19 @@ export const nxtSubPages = () => {
     payload: 1,
   };
 };
-export const searchByInput=(inputValue)=>{
+export const settingInput=(inputValue)=>{
   return {
     type:INPUT_SEARCHBAR,
     payload: inputValue
+  }
+}
+export const resetGamesToRenderForNames=()=>{
+  return{
+    type:RESET_GAMESTORENDER
+  }
+};
+export const setFetching=() =>{
+  return {
+    type:FETCHING
   }
 }

@@ -12,11 +12,14 @@ import {
   NEXT_SUBPAGE,
   ALL_BY_NAME,
   INPUT_SEARCHBAR,
+  RESET_GAMESTORENDER,
+  FETCHING
 } from "../actions";
 let initialState = {
   allVideogames: [],
   gamesToRender: [],
   inputToSearch: "",
+  successFetch: true,
   perPage: 15,
   currentPage: 1,
   perSubPages: 3,
@@ -123,16 +126,37 @@ export const rootReducer = (state = initialState, action) => {
       };
     }
     case ALL_BY_NAME: {
-      return {
-        ...state,
-        gamesToRender: action.payload,
-      };
+      if (action.payload.length === 0) {
+        return {
+          ...state,
+          successFetch: false,
+          gamesToRender: state.allVideogames
+        };
+      } else {
+        return {
+          ...state,
+          gamesToRender: action.payload,
+        };
+      }
     }
     case INPUT_SEARCHBAR: {
       return {
         ...state,
         inputToSearch: action.payload,
       };
+    }
+    case RESET_GAMESTORENDER: {
+      return {
+        ...state,
+        gamesToRender: [],
+      };
+    }
+    case FETCHING:{
+      return {
+        ...state,
+        successFetch: true,
+        inputToSearch: ""
+      }
     }
     default:
       return state;
