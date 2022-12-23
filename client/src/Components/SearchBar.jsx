@@ -1,20 +1,29 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { allByName, searchByInput } from "../Redux/actions/index";
 
 export default function SearchBar() {
-  const [nameGame, setNameGame] = useState("");
+  const dispatch = useDispatch();
+  const inputToSearch = useSelector((state) => state.inputToSearch);
+  const [input, setInput] = useState("");
 
-  const changeHandler = (e) => {
-    setNameGame(e.target.value);
+  const handlerChange = (e) => {
+    setInput(e.target.value);
+    dispatch(searchByInput(e.target.value));
+  };
+  const handlerSubmit = (e) => {
+    e.preventDefault();
+    dispatch(allByName(input));
   };
   return (
     <div>
       <input
         type="text"
         placeholder="search game"
-        value={nameGame}
-        onChange={(e) => changeHandler(e)}
+        value={inputToSearch}
+        onChange={(e) => handlerChange(e)}
       ></input>
-      <button>search</button>
+      <button onClick={(e) => handlerSubmit(e)}>search</button>
     </div>
   );
 }

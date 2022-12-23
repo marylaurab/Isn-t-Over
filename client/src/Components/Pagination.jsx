@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   prevPage,
@@ -32,7 +32,7 @@ export default function Pagination({ currentPage, totalPagesToRender }) {
   const nextPage = () => {
     if (currentPage === totalPagesToRender) return;
     if (currentPage === renderSubPages[renderSubPages.length - 1]) {
-      dispatch(nxtSubPages()); //puede q esto tenga q ser otra funcion q haga lo mismo + cambiar el currentpage
+      dispatch(nxtSubPages()); 
       dispatch(setNextPivot())
       return;
     }
@@ -48,12 +48,6 @@ export default function Pagination({ currentPage, totalPagesToRender }) {
   };
   const nextSubPages = () => {
     if (conditional === currentSubPage) return;
-    // if(pages[j + perSubPages]===pages[pages.length-1]) {
-    //   setRenderSubPages([
-    //     pages[j + perSubPages]
-    //   ]);
-    //   return;
-    // }
     dispatch(nxtSubPages());
     dispatch(setNextPivot())
   };

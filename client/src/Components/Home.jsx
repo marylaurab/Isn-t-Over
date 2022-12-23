@@ -18,7 +18,9 @@ export default function Home() {
   const firstIndex = lastIndex - perPage;
 
   useEffect(() => {
-    dispatch(getAllVideogames());
+    if (gamesToRender.length === 0) {
+      dispatch(getAllVideogames());
+    }
   }, []);
 
   useEffect(() => {

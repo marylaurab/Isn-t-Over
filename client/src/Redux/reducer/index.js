@@ -10,10 +10,13 @@ import {
   ON_SPECIFIC_PAGE,
   PREV_SUBPAGE,
   NEXT_SUBPAGE,
+  ALL_BY_NAME,
+  INPUT_SEARCHBAR,
 } from "../actions";
 let initialState = {
   allVideogames: [],
   gamesToRender: [],
+  inputToSearch: "",
   perPage: 15,
   currentPage: 1,
   perSubPages: 3,
@@ -64,7 +67,7 @@ export const rootReducer = (state = initialState, action) => {
           state.pages[state.indexes.j],
           state.pages[state.indexes.k],
           state.pages[state.indexes.l],
-        ],
+        ].filter((e) => e !== undefined),
       };
     }
     case PREV_PAGE: {
@@ -117,6 +120,18 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         currentPage: state.pages[state.indexes.l],
+      };
+    }
+    case ALL_BY_NAME: {
+      return {
+        ...state,
+        gamesToRender: action.payload,
+      };
+    }
+    case INPUT_SEARCHBAR: {
+      return {
+        ...state,
+        inputToSearch: action.payload,
       };
     }
     default:
