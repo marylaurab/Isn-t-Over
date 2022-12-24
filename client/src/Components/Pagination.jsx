@@ -30,7 +30,8 @@ export default function Pagination({ currentPage, totalPagesToRender }) {
     dispatch(prevPage());
   };
   const nextPage = () => {
-    if (currentPage === totalPagesToRender) return;
+    if (currentPage === totalPagesToRender) return; //aca podria codear para renderizar la siguiente pag, o
+    //los botoncitos de punticos
     if (currentPage === renderSubPages[renderSubPages.length - 1]) {
       dispatch(nxtSubPages()); 
       dispatch(setNextPivot())

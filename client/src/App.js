@@ -7,7 +7,7 @@ import  Home from "./Components/Home";
 function App() {
   return (
     <div>
-      <Route exact path="/" component={Landing} />
+      <Route exact path="/landing" component={Landing} />
       <Route exact path="/videogames" component={Home} />
       {/* <Route exact path="/videogames" component={SearchBar} />
       <Route path="/videogames/creategame" component={CreateGame} />

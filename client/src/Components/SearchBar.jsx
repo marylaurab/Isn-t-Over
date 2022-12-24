@@ -1,10 +1,13 @@
-import { useState, useRef } from "react";
+import { useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   allByName,
   settingInput,
   resetGamesToRenderForNames,
+  resetInputOrder,
+  resetInputFilter
 } from "../Redux/actions/index";
+
 
 export default function SearchBar() {
   const dispatch = useDispatch();
@@ -18,9 +21,12 @@ export default function SearchBar() {
   const handlerSubmit = (e) => {
     e.preventDefault();
     dispatch(resetGamesToRenderForNames());
-    dispatch(allByName(input));
+    dispatch(allByName(input?input:inputToSearch));
+    dispatch(resetInputOrder())
+    dispatch(resetInputFilter())
   };
   return (
+    <div>
     <form onSubmit={handlerSubmit}>
       <input
         type="text"
@@ -30,5 +36,6 @@ export default function SearchBar() {
       ></input>
       <input type="submit" value="search"></input>
     </form>
-  ); //onClick={(e) => handlerSubmit(e)}
+    </div>
+  ); 
 }

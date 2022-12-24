@@ -13,13 +13,27 @@ import {
   ALL_BY_NAME,
   INPUT_SEARCHBAR,
   RESET_GAMESTORENDER,
-  FETCHING
+  FETCHING,
+  ORDER_BY,
+  RESET_INPUT_VALUE,
+  RESET_GAMES_BY_NAME,
+  RESET_HOME,
+  GET_ALL_GENRES,
+  FILTER_BY_GENRES,
+  RESET_INPUT_FILTER,
+  SET_BY_NAME
 } from "../actions";
 let initialState = {
   allVideogames: [],
   gamesToRender: [],
+  gamesByName: [],
+  genres: [],
   inputToSearch: "",
+  inputForOrder: "no order",
+  inputForFilter: "no filter",
   successFetch: true,
+  filterApplied: false,
+  orderApplied:false,
   perPage: 15,
   currentPage: 1,
   perSubPages: 3,
@@ -130,12 +144,13 @@ export const rootReducer = (state = initialState, action) => {
         return {
           ...state,
           successFetch: false,
-          gamesToRender: state.allVideogames
+          gamesToRender: state.allVideogames,
         };
       } else {
         return {
           ...state,
           gamesToRender: action.payload,
+          gamesByName: action.payload,
         };
       }
     }
@@ -151,11 +166,167 @@ export const rootReducer = (state = initialState, action) => {
         gamesToRender: [],
       };
     }
-    case FETCHING:{
+    case FETCHING: {
       return {
         ...state,
         successFetch: true,
-        inputToSearch: ""
+        inputToSearch: "",
+      };
+    }
+    case ORDER_BY: {
+      if (action.payload === "asc") {
+        return {
+          ...state,
+          inputForOrder: "A>Z",
+          gamesToRender: state.gamesToRender.slice().sort((m, n) => {
+            if (m.title.toLowerCase() > n.title.toLowerCase()) {
+              return 1;
+            }
+            if (n.title.toLowerCase() > m.title.toLowerCase()) {
+              return -1;
+            }
+            return 0;
+          }),
+          orderApplied:true,
+        };
+      } else if (action.payload === "des") {
+        return {
+          ...state,
+          inputForOrder: "Z>A",
+          gamesToRender: state.gamesToRender.slice().sort((m, n) => {
+            if (m.title.toLowerCase() > n.title.toLowerCase()) {
+              return -1;
+            }
+            if (n.title.toLowerCase() > m.title.toLowerCase()) {
+              return 1;
+            }
+            return 0;
+          }),
+          orderApplied:true,
+        };
+      } else if (action.payload === "greatest") {
+        return {
+          ...state,
+          inputForOrder: "GREATEST RATING",
+          gamesToRender: state.gamesToRender.slice().sort((m, n) => {
+            if (m.rating > n.rating) {
+              return -1;
+            }
+            if (n.rating > m.rating) {
+              return 1;
+            }
+            return 0;
+          }),
+          orderApplied:true,
+        };
+      } else if (action.payload === "least") {
+        return {
+          ...state,
+          inputForOrder: "LEAST RATING",
+          gamesToRender: state.gamesToRender.slice().sort((m, n) => {
+            if (m.rating > n.rating) {
+              return 1;
+            }
+            if (n.rating > m.rating) {
+              return -1;
+            }
+            return 0;
+      
+          }),
+          orderApplied:true,
+        };
+      } else if (action.payload === "noOrder") {
+        if (state.filterApplied === false && state.inputToSearch === "") {
+          return {
+            ...state,
+            gamesToRender: state.allVideogames,
+            orderApplied:false,
+          };
+        } else if (
+          state.filterApplied === false &&
+          state.inputToSearch !== ""
+        ) {
+          return {
+            ...state,
+            gamesToRender: state.gamesByName,
+            orderApplied:false,
+          };
+        }
+      }
+      break;
+      // else {
+      //   return {
+      //     ...state,
+      //     gamesToRender: withoutOrder,
+      //   };
+      // }
+    }
+    case RESET_INPUT_VALUE: {
+      return {
+        ...state,
+        inputForOrder: "no order",
+        orderApplied:false,
+      };
+    }
+    case RESET_GAMES_BY_NAME: {
+      return {
+        ...state,
+        gamesByName: [],
+      };
+    }
+    case RESET_HOME: {
+      return {
+        ...state,
+        gamesByName: [],
+        gamesToRender: state.allVideogames,
+        orderApplied:false,
+        filterApplied: false,
+        inputToSearch: "",
+        inputForOrder: "no order",
+        inputForFilter: "no filter"
+      };
+    }
+    case GET_ALL_GENRES: {
+      return {
+        ...state,
+        genres: action.payload,
+      };
+    }
+    case FILTER_BY_GENRES: {
+      if(state.orderApplied===false && state.inputToSearch=== "") {
+        return{
+          ...state,
+        filterApplied: true,
+        inputForFilter: action.payload,
+        gamesToRender: state.allVideogames.slice().filter((game) =>
+          game.genres.includes(action.payload)
+        ),
+        }
+      }
+      if(state.orderApplied===false && state.inputToSearch!== ""){
+        return {
+          ...state,
+          filterApplied: true,
+          inputForFilter: action.payload,
+          gamesToRender: state.gamesByName.slice().filter((game) =>
+          game.genres.includes(action.payload)
+        )
+        }
+      }
+    }
+    case RESET_INPUT_FILTER:{
+      return {
+        ...state,
+        inputForFilter: "no filter",
+        filterApplied: false
+      }
+    }
+    case SET_BY_NAME:{
+      return {
+        ...state,
+        inputForFilter: "no filter",
+        filterApplied: false,
+        gamesToRender: state.gamesByName
       }
     }
     default:

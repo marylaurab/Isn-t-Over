@@ -11,9 +11,17 @@ export const NEXT_SUBPAGE = "NEXT_SUBPAGE";
 export const SET_NEXTPIVOT = "SET_NEXTPIVOT";
 export const SET_PREVPIVOT = "SET_PREVPIVOT";
 export const ALL_BY_NAME = "ALL_BY_NAME";
-export const INPUT_SEARCHBAR="INPUT_SEARCHBAR";
-export const RESET_GAMESTORENDER="RESET_GAMESTORENDER";
-export const FETCHING="FETCHING"
+export const INPUT_SEARCHBAR = "INPUT_SEARCHBAR";
+export const RESET_GAMESTORENDER = "RESET_GAMESTORENDER";
+export const FETCHING = "FETCHING";
+export const FILTER_BY_GENRES = "FILTER_BY_GENRES";
+export const ORDER_BY = "ORDER_BY";
+export const RESET_INPUT_VALUE = "RESET_INPUT_VALUE";
+export const RESET_GAMES_BY_NAME = "RESET_GAMES_BY_NAME";
+export const RESET_HOME = "RESET_HOME";
+export const GET_ALL_GENRES = "GET_ALL_GENRES";
+export const RESET_INPUT_FILTER="RESET_INPUT_FILTER"
+export const SET_BY_NAME="SET_BY_NAME"
 
 export const getAllVideogames = () => {
   return async function (dispatch) {
@@ -26,7 +34,14 @@ export const allByName = (nameGame) => {
   return async function (dispatch) {
     return fetch(`http://localhost:3001/videogames?nameGame=${nameGame}`)
       .then((response) => response.json())
-      .then((json) => dispatch({ type: ALL_BY_NAME, payload: json}));
+      .then((json) => dispatch({ type: ALL_BY_NAME, payload: json }));
+  };
+};
+export const getAllGenres = () => {
+  return async function (dispatch) {
+    return fetch("http://localhost:3001/genres")
+      .then((response) => response.json())
+      .then((json) => dispatch({ type: GET_ALL_GENRES, payload: json }));
   };
 };
 export const setAuxPaginate = () => {
@@ -84,19 +99,62 @@ export const nxtSubPages = () => {
     payload: 1,
   };
 };
-export const settingInput=(inputValue)=>{
+export const settingInput = (inputValue) => {
   return {
-    type:INPUT_SEARCHBAR,
-    payload: inputValue
+    type: INPUT_SEARCHBAR,
+    payload: inputValue,
+  };
+};
+export const resetGamesToRenderForNames = () => {
+  return {
+    type: RESET_GAMESTORENDER,
+  };
+};
+export const setFetching = () => {
+  return {
+    type: FETCHING,
+  };
+};
+export const filterByGenres = () => {
+  return {
+    type: FILTER_BY_GENRES,
+  };
+};
+export const order = (order) => {
+  return {
+    type: ORDER_BY,
+    payload: order,
+  };
+};
+export const resetInputOrder = () => {
+  return {
+    type: RESET_INPUT_VALUE,
+  };
+};
+export const resetGamesByName = () => {
+  return {
+    type: RESET_GAMES_BY_NAME,
+  };
+};
+export const resetHome = () => {
+  return {
+    type: RESET_HOME,
+  };
+};
+
+export const filterByGenre = (genre) => {
+  return {
+    type: FILTER_BY_GENRES,
+    payload: genre,
+  };
+};
+export const resetInputFilter=()=>{
+  return {
+    type:RESET_INPUT_FILTER
   }
 }
-export const resetGamesToRenderForNames=()=>{
+export const setByName=()=>{
   return{
-    type:RESET_GAMESTORENDER
-  }
-};
-export const setFetching=() =>{
-  return {
-    type:FETCHING
+    type:SET_BY_NAME
   }
 }
