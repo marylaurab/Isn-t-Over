@@ -4,15 +4,16 @@ const { getGenresDb, getGenresApi } = require("./auxiliar-Genre.js");
 const getAllGenres = async () => {
   try {
     let getGenresSaved = await getGenresDb();
-    if (getGenresSaved.length===0) {
+    if (getGenresSaved.length === 0) {
       let getGenres = await getGenresApi();
-       getGenres.forEach((nameGame) => {
+      getGenres.forEach((genre) => {
         Genre.findOrCreate({
           where: {
-            name: nameGame,
+            name: genre,
           },
         });
       });
+
       return getGenres;
     }
     return getGenresSaved;
@@ -21,6 +22,6 @@ const getAllGenres = async () => {
   }
 };
 
-module.exports={
-  getAllGenres
-}
+module.exports = {
+  getAllGenres,
+};

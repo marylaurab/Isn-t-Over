@@ -14,7 +14,7 @@ router.use('/genres', genreMiddleware)
 
 
 // Configurar los routers
-// Ejemplo: router.use('/auth', authRouter);
+// Ejemplo: rbbbbiisawmouter.use('/auth', authRouter);
   
 
 

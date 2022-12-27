@@ -1,7 +1,7 @@
-export default function CardGame({ image, title, rating, genres }) {
+export default function CardGame({ image, title, rating, genres,id }) {
 
   return (
-    <div>
+    <div >
       <img src={image} alt={`${title}`} width='380px' height='250px'/>
       <h4>{title}</h4>
       <div>

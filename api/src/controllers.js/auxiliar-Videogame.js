@@ -28,6 +28,7 @@ const getApiGames = async () => {
       throw Error(error.message);
     }
   }
+  
   return apiGames;
 };
 getApiGames();

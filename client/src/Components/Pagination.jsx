@@ -1,21 +1,37 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+// import {
+//   prevPage,
+//   nxtPage,
+//   specificPage,
+//   prevSubPages,
+//   nxtSubPages,
+//   setSubPages,
+//   setNextPivot,
+//   setPrevPivot,
+// } from "../Redux/actions/index";
 import {
-  prevPage,
+  setSubPages,
+  prevSubPages,
+  setPrevPivot,
+  nxtSubPages,
+  setNextPivot,
   nxtPage,
   specificPage,
-  prevSubPages,
-  nxtSubPages,
-  setSubPages,
-  setNextPivot,
-  setPrevPivot
-} from "../Redux/actions/index";
+  prevPage
+} from "../Redux/actions/pages";
 export default function Pagination({ currentPage, totalPagesToRender }) {
   const dispatch = useDispatch();
-  const currentSubPage = useSelector((state) => state.currentSubPage);
-  const indexes = useSelector((state) => state.indexes);
-  const conditional = useSelector((state) => state.conditional);
-  const renderSubPages = useSelector((state) => state.renderSubPages);
+  // const currentSubPage = useSelector((state) => state.currentSubPage);
+  // const indexes = useSelector((state) => state.indexes);
+  // const conditional = useSelector((state) => state.conditional);
+  // const renderSubPages = useSelector((state) => state.renderSubPages);
+
+  const currentSubPage = useSelector((state) => state.paginate.currentSubPage);
+  const indexes = useSelector((state) => state.paginate.indexes);
+  const conditional = useSelector((state) => state.paginate.conditional);
+  const renderSubPages = useSelector((state) => state.paginate.renderSubPages);
+
   useEffect(() => {
     dispatch(setSubPages());
   }, [indexes]);
@@ -24,7 +40,7 @@ export default function Pagination({ currentPage, totalPagesToRender }) {
     if (currentPage === 1) return;
     if (currentPage === renderSubPages[0]) {
       dispatch(prevSubPages());
-      dispatch(setPrevPivot())
+      dispatch(setPrevPivot());
       return;
     }
     dispatch(prevPage());
@@ -33,8 +49,8 @@ export default function Pagination({ currentPage, totalPagesToRender }) {
     if (currentPage === totalPagesToRender) return; //aca podria codear para renderizar la siguiente pag, o
     //los botoncitos de punticos
     if (currentPage === renderSubPages[renderSubPages.length - 1]) {
-      dispatch(nxtSubPages()); 
-      dispatch(setNextPivot())
+      dispatch(nxtSubPages());
+      dispatch(setNextPivot());
       return;
     }
     dispatch(nxtPage());
@@ -45,12 +61,12 @@ export default function Pagination({ currentPage, totalPagesToRender }) {
   const previousSubPages = () => {
     if (currentSubPage === 1) return;
     dispatch(prevSubPages());
-    dispatch(setNextPivot())
+    dispatch(setNextPivot());
   };
   const nextSubPages = () => {
     if (conditional === currentSubPage) return;
     dispatch(nxtSubPages());
-    dispatch(setNextPivot())
+    dispatch(setNextPivot());
   };
   return (
     <div>
