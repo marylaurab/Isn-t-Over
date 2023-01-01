@@ -4,6 +4,7 @@ import {
   SET_INPUT_FILTER_BY_CREATION,
   SET_INPUT_ORDER,
   SET_BY_NAME,
+  SET_FLAG_SOME_FILTER_APPLIED
 } from "./-index";
 
 export const setInputSearchBar = (inputValue) => {
@@ -41,3 +42,8 @@ export const setByName = () => {
     type: SET_BY_NAME,
   };
 };
+ export const setFlagSomeFilterApplied=()=>{
+  return {
+    type:SET_FLAG_SOME_FILTER_APPLIED
+  }
+ }

@@ -3,23 +3,29 @@ import {
   GET_ALL_BY_NAME,
   SET_BY_NAME,
   GET_ALL_GENRES,
+  GET_DETAILS,
   RESET_GAMES_TO_RENDER,
   RESET_GAMES_BY_NAME,
   RESET_FETCHING,
+  RESET_SOME_APPLIED_FILTER_FLAG,
   CLEAN_GAMES_TO_RENDER,
   ORDER_BY,
   FILTER_BY_GENRES,
   FILTER_BY_CREATION,
+  SET_FLAG_SOME_FILTER_APPLIED,
 } from "../actions/-index";
 
-import { filteringByGenres } from "../auxFunctions";
+import { filteringByGenres, filteringByCreated } from "../auxFunctions";
 
 let initialState = {
   allVideogames: [],
   gamesToRender: [],
   gamesByName: [],
   genres: [],
+  detailGame: [],
+
   successFetch: true,
+  someFilterApplied: false,
 
   onlyFilterByGenreForAll: [],
   onlyFilterByGenreForNames: [],
@@ -51,7 +57,7 @@ export const mainData = (localState = initialState, action) => {
         return {
           ...localState,
           successFetch: false,
-          gamesByName: [], //esto se agrego luego
+          gamesByName: [],
           gamesToRender: localState.allVideogames,
         };
       } else {
@@ -61,6 +67,12 @@ export const mainData = (localState = initialState, action) => {
           gamesByName: action.payload,
         };
       }
+    }
+    case GET_DETAILS: {
+      return {
+        ...localState,
+        detailGame: action.payload,
+      };
     }
     case RESET_GAMES_TO_RENDER: {
       return {
@@ -80,6 +92,12 @@ export const mainData = (localState = initialState, action) => {
         successFetch: true,
       };
     }
+    case RESET_SOME_APPLIED_FILTER_FLAG: {
+      return {
+        ...localState,
+        someFilterApplied: false,
+      };
+    }
     case CLEAN_GAMES_TO_RENDER: {
       return {
         ...localState,
@@ -93,118 +111,114 @@ export const mainData = (localState = initialState, action) => {
       };
     }
     case ORDER_BY: {
-      if (action.payload.name !== "NO ORDER") {
+      if (action.applyingOrder.name !== "NO ORDER") {
         return {
           ...localState,
           gamesToRender: localState.gamesToRender
             .slice()
-            .sort(action.payload.sortToApply),
+            .sort(action.applyingOrder.sortToApply),
           onlyOrderForAll: localState.allVideogames
             .slice()
-            .sort(action.payload.sortToApply),
+            .sort(action.applyingOrder.sortToApply),
           onlyOrderForNames: localState.gamesByName
             .slice()
-            .sort(action.payload.sortToApply),
+            .sort(action.applyingOrder.sortToApply),
         };
       } else {
-        if (
-          action.filterByCreationApplied === false &&
-          action.filterByGenreApplied === false
-        ) {
-          if (localState.gamesByName.length > 0) {
-            return {
-              ...localState,
-              onlyOrderForAll: [],
-              onlyOrderForNames: [],
-              gamesToRender: localState.gamesByName,
-            };
-          } else {
-            return {
-              ...localState,
-              onlyOrderForAll: [],
-              onlyOrderForNames: [],
-              gamesToRender: localState.allVideogames,
-            };
-          }
+        if (action.flags.id === 1 && localState.gamesByName.length === 0) {
+          return {
+            ...localState,
+            gamesToRender: localState.allVideogames,
+            onlyOrderForAll: [],
+            onlyOrderForNames: [],
+          };
+        } else if (action.flags.id === 1 && localState.gamesByName.length > 0) {
+          return {
+            ...localState,
+            gamesToRender: localState.gamesByName,
+            onlyOrderForAll: [],
+            onlyOrderForNames: [],
+          };
         } else if (
-          action.filterByCreationApplied === false &&
-          action.filterByGenreApplied === true
+          action.flags.id === 2 &&
+          localState.gamesByName.length === 0
         ) {
-          if (localState.gamesByName.length > 0) {
-            return {
-              ...localState,
-              onlyOrderForAll: [],
-              onlyOrderForNames: [],
-              gamesToRender: localState.onlyFilterByGenreForNames,
-            };
-          } else {
-            return {
-              ...localState,
-              onlyOrderForAll: [],
-              onlyOrderForNames: [],
-              gamesToRender: localState.onlyFilterByGenreForAll,
-            };
-          }
+          return {
+            ...localState,
+            gamesToRender: localState.onlyFilterByGenreForAll,
+            onlyOrderForAll: [],
+            onlyOrderForNames: [],
+          };
+        } else if (action.flags.id === 2 && localState.gamesByName.length > 0) {
+          return {
+            ...localState,
+            gamesToRender: localState.onlyFilterByGenreForNames,
+            onlyOrderForAll: [],
+            onlyOrderForNames: [],
+          };
         } else if (
-          action.filterByCreationApplied !== false &&
-          action.filterByGenreApplied === false
+          action.flags.id === 3 &&
+          localState.gamesByName.length === 0
         ) {
-          if (localState.gamesByName.length > 0) {
-            return {
-              ...localState,
-              onlyOrderForAll: [],
-              onlyOrderForNames: [],
-              gamesToRender: localState.onlyFilterByCreationForNames,
-            };
-          } else {
-            return {
-              ...localState,
-              onlyOrderForAll: [],
-              onlyOrderForNames: [],
-              gamesToRender: localState.onlyFilterByCreationForAll,
-            };
-          }
+          return {
+            ...localState,
+            gamesToRender: localState.onlyFilterByCreationForAll,
+            onlyOrderForAll: [],
+            onlyOrderForNames: [],
+          };
+        } else if (action.flags.id === 3 && localState.gamesByName.length > 0) {
+          return {
+            ...localState,
+            gamesToRender: localState.onlyFilterByCreationForNames,
+            onlyOrderForAll: [],
+            onlyOrderForNames: [],
+          };
         } else if (
-          action.filterByCreationApplied !== false &&
-          action.filterByGenreApplied === true
+          action.flags.id === 4 &&
+          localState.gamesByName.length === 0
         ) {
-          if (localState.gamesByName.length > 0) {
-            return {
-              ...localState,
-              onlyOrderForAll: [],
-              onlyOrderForNames: [],
-              gamesToRender: localState.onlyFilterByCreationForNames.filter(
-                (g) => filteringByGenres(g, action.payload.name)
-              ),
-              //otra forma: localState.gamesByName
-              // .filter((g) =>
-              //   filteringByGenres(g, action.inputForFilterByGenre)
-              // )
-              // .filter((g) => action.payloadByCreation.filterToApply(g)),
-            };
-          } else {
-            return {
-              ...localState,
-              onlyOrderForAll: [],
-              onlyOrderForNames: [],
-              gamesToRender: localState.onlyFilterByCreationForAll.filter((g) =>
-                filteringByGenres(g, action.payload.name)
-              ),
-              // OTRA FORMA: localState.allVideogames
-              //   .filter((g) =>
-              //     filteringByGenres(g, action.inputForFilterByGenre)
-              //   )
-              //   .filter((g) => action.payloadByCreation.filterToApply(g)),
-            };
-          }
+          return {
+            ...localState,
+            gamesToRender: localState.onlyFilterByCreationForAll.filter((g) =>
+              filteringByGenres(g, action.inputForFilterByGenre)
+            ),
+            onlyOrderForAll: [],
+            onlyOrderForNames: [],
+          };
+        } else if (action.flags.id === 4 && localState.gamesByName.length > 0) {
+          return {
+            ...localState,
+            gamesToRender: localState.onlyFilterByCreationForNames.filter((g) =>
+              filteringByGenres(g, action.inputForFilterByGenre)
+            ),
+            onlyOrderForAll: [],
+            onlyOrderForNames: [],
+          };
         }
       }
     }
     case FILTER_BY_GENRES: {
-      if (action.payload !== "NO FILTER") {
+      if (
+        action.applyingFilter.id === 1 &&
+        localState.gamesByName.length === 0
+      ) {
         return {
           ...localState,
-          gamesToRender: localState.gamesToRender.filter((g) =>
+          gamesToRender: localState.allVideogames.filter((g) =>
+            filteringByGenres(g, action.payload)
+          ),
+          onlyFilterByGenreForAll: localState.allVideogames.filter((g) =>
+            filteringByGenres(g, action.payload)
+          ),
+          onlyFilterByGenreForNames: [],
+        };
+      } else if (
+        action.applyingFilter.id === 1 &&
+        localState.gamesByName.length > 0
+      ) {
+        return {
+          ...localState,
+          gamesToRender: localState.gamesByName.filter((g) =>
             filteringByGenres(g, action.payload)
           ),
           onlyFilterByGenreForAll: localState.allVideogames.filter((g) =>
@@ -214,88 +228,185 @@ export const mainData = (localState = initialState, action) => {
             filteringByGenres(g, action.payload)
           ),
         };
-      } else {
-        if (
-          action.orderApplied === false &&
-          action.filterByCreationApplied === false
-        ) {
-          if (localState.gamesByName.length > 0) {
-            return {
-              ...localState,
-              onlyFilterByGenreForAll: [],
-              onlyFilterByGenreForNames: [],
-              gamesToRender: localState.gamesByName,
-            };
-          } else {
-            return {
-              ...localState,
-              onlyFilterByGenreForAll: [],
-              onlyFilterByGenreForNames: [],
-              gamesToRender: localState.allVideogames,
-            };
-          }
-        } else if (
-          action.orderApplied === false &&
-          action.filterByCreationApplied !== false
-        ) {
-          if (localState.gamesByName.length > 0) {
-            return {
-              ...localState,
-              onlyFilterByGenreForAll: [],
-              onlyFilterByGenreForNames: [],
-              gamesToRender: localState.onlyFilterByCreationForNames,
-            };
-          } else {
-            return {
-              ...localState,
-              onlyFilterByGenreForAll: [],
-              onlyFilterByGenreForNames: [],
-              gamesToRender: localState.onlyFilterByCreationForAll,
-            };
-          }
-        } else if (
-          action.orderApplied === true &&
-          action.filterByCreationApplied === false
-        ) {
-          if (localState.gamesByName.length > 0) {
-            return {
-              ...localState,
-              onlyFilterByGenreForAll: [],
-              onlyFilterByGenreForNames: [],
-              gamesToRender: localState.onlyOrderForNames,
-            };
-          } else {
-            return {
-              ...localState,
-              onlyFilterByGenreForAll: [],
-              onlyFilterByGenreForNames: [],
-              gamesToRender: localState.onlyOrderForAll,
-            };
-          }
-        } else if (
-          action.orderApplied === true &&
-          action.filterByCreationApplied !== false
-        ) {
-          if (localState.gamesByName.length > 0) {
-            return {
-              ...localState,
-              onlyFilterByGenreForAll: [],
-              onlyFilterByGenreForNames: [],
-              gamesToRender: localState.onlyFilterByCreationForNames.filter(
-                (g) => filteringByGenres(g, action.payload)
-              ),
-            };
-          } else {
-            return {
-              ...localState,
-              onlyFilterByGenreForAll: [],
-              onlyFilterByGenreForNames: [],
-              gamesToRender: localState.onlyFilterByCreationForAll.filter((g) =>
-                filteringByGenres(g, action.payload)
-              ),
-            };
-          }
-        }
+      } else if (
+        action.applyingFilter.id === 2 &&
+        localState.gamesByName.length === 0
+      ) {
+        return {
+          ...localState,
+          gamesToRender: localState.onlyOrderForAll.filter((g) =>
+            filteringByGenres(g, action.payload)
+          ),
+          onlyFilterByGenreForAll: localState.allVideogames.filter((g) =>
+            filteringByGenres(g, action.payload)
+          ),
+          onlyFilterByGenreForNames: [],
+        };
+      } else if (
+        action.applyingFilter.id === 2 &&
+        localState.gamesByName.length > 0
+      ) {
+        return {
+          ...localState,
+          gamesToRender: localState.onlyOrderForNames.filter((g) =>
+            filteringByGenres(g, action.payload)
+          ),
+          onlyFilterByGenreForAll: localState.allVideogames.filter((g) =>
+            filteringByGenres(g, action.payload)
+          ),
+          onlyFilterByGenreForNames: localState.gamesByName.filter((g) =>
+            filteringByGenres(g, action.payload)
+          ),
+        };
+      } else if (
+        action.applyingFilter.id === 3 &&
+        localState.gamesByName.length === 0
+      ) {
+        return {
+          ...localState,
+          gamesToRender: localState.onlyFilterByCreationForAll.filter((g) =>
+            filteringByGenres(g, action.payload)
+          ),
+          onlyFilterByGenreForAll: localState.allVideogames.filter((g) =>
+            filteringByGenres(g, action.payload)
+          ),
+          onlyFilterByGenreForNames: [],
+        };
+      } else if (
+        action.applyingFilter.id === 3 &&
+        localState.gamesByName.length > 0
+      ) {
+        return {
+          ...localState,
+          gamesToRender: localState.onlyFilterByCreationForAll.filter((g) =>
+            filteringByGenres(g, action.payload)
+          ),
+          onlyFilterByGenreForAll: localState.allVideogames.filter((g) =>
+            filteringByGenres(g, action.payload)
+          ),
+          onlyFilterByGenreForNames: localState.gamesByName.filter((g) =>
+            filteringByGenres(g, action.payload)
+          ),
+        };
+      } else if (
+        action.applyingFilter.id === 4 &&
+        localState.gamesByName.length === 0
+      ) {
+        return {
+          ...localState,
+          gamesToRender: localState.onlyOrderForAll
+            .filter((g) => filteringByGenres(g, action.payload))
+            .filter((g) => filteringByCreated(g)),
+          onlyFilterByGenreForAll: localState.allVideogames.filter((g) =>
+            filteringByGenres(g, action.payload)
+          ),
+          onlyFilterByGenreForNames: [],
+        };
+      } else if (
+        action.applyingFilter.id === 4 &&
+        localState.gamesByName.length > 0
+      ) {
+        return {
+          ...localState,
+          gamesToRender: localState.onlyOrderForNames
+            .filter((g) => filteringByGenres(g, action.payload))
+            .filter((g) => filteringByCreated(g)),
+          onlyFilterByGenreForAll: localState.allVideogames.filter((g) =>
+            filteringByGenres(g, action.payload)
+          ),
+          onlyFilterByGenreForNames:
+            localState.onlyFilterByGenreForNames.filter((g) =>
+              filteringByCreated(g, action.payload)
+            ),
+        };
+      } else if (
+        action.applyingFilter.id === 5 &&
+        localState.gamesByName.length === 0
+      ) {
+        return {
+          ...localState,
+          gamesToRender: localState.allVideogames,
+          onlyFilterByGenreForAll: [],
+          onlyFilterByGenreForNames: [],
+          someFilterApplied: false,
+        };
+      } else if (
+        action.applyingFilter.id === 5 &&
+        localState.gamesByName.length > 0
+      ) {
+        return {
+          ...localState,
+          gamesToRender: localState.gamesByName,
+          onlyFilterByGenreForAll: [],
+          onlyFilterByGenreForNames: [],
+          someFilterApplied: false,
+        };
+      } else if (
+        action.applyingFilter.id === 6 &&
+        localState.gamesByName.length === 0
+      ) {
+        return {
+          ...localState,
+          gamesToRender: localState.onlyOrderForAll,
+          onlyFilterByGenreForAll: [],
+          onlyFilterByGenreForNames: [],
+          someFilterApplied: false,
+        };
+      } else if (
+        action.applyingFilter.id === 6 &&
+        localState.gamesByName.length > 0
+      ) {
+        return {
+          ...localState,
+          gamesToRender: localState.onlyOrderForNames,
+          onlyFilterByGenreForAll: [],
+          onlyFilterByGenreForNames: [],
+          someFilterApplied: false,
+        };
+      } else if (
+        action.applyingFilter.id === 7 &&
+        localState.gamesByName.length === 0
+      ) {
+        return {
+          ...localState,
+          gamesToRender: localState.onlyFilterByCreationForAll,
+          onlyFilterByGenreForAll: [],
+          onlyFilterByGenreForNames: [],
+        };
+      } else if (
+        action.applyingFilter.id === 7 &&
+        localState.gamesByName.length > 0
+      ) {
+        return {
+          ...localState,
+          gamesToRender: localState.onlyFilterByCreationForNames,
+          onlyFilterByGenreForAll: [],
+          onlyFilterByGenreForNames: [],
+        };
+      } else if (
+        action.applyingFilter.id === 8 &&
+        localState.gamesByName.length === 0
+      ) {
+        return {
+          ...localState,
+          gamesToRender: localState.onlyOrderForAll.filter((g) =>
+            filteringByCreated(g)
+          ),
+          onlyFilterByGenreForAll: [],
+          onlyFilterByGenreForNames: [],
+        };
+      } else if (
+        action.applyingFilter.id === 8 &&
+        localState.gamesByName.length > 0
+      ) {
+        return {
+          ...localState,
+          gamesToRender: localState.onlyOrderForNames.filter((g) =>
+            filteringByCreated(g)
+          ),
+          onlyFilterByGenreForAll: [],
+          onlyFilterByGenreForNames: [],
+        };
       }
     }
     case FILTER_BY_CREATION: {
@@ -303,98 +414,54 @@ export const mainData = (localState = initialState, action) => {
         return {
           ...localState,
           gamesToRender: localState.gamesToRender.filter((g) =>
-            action.filterType.filterToApply(g)
+            filteringByCreated(g)
           ),
           onlyFilterByCreationForAll: localState.allVideogames.filter((g) =>
-            action.filterType.filterToApply(g)
+            filteringByCreated(g)
           ),
           onlyFilterByCreationForNames: localState.gamesByName.filter((g) =>
-            action.filterType.filterToApply(g)
+            filteringByCreated(g)
           ),
         };
       } else {
-        if (
-          action.orderApplied === false &&
-          action.filterByGenreApplied === false
-        ) {
-          if (localState.gamesByName.length > 0) {
-            return {
-              ...localState,
-              onlyFilterByCreationForAll: [],
-              onlyFilterByCreationForNames: [],
-              gamesToRender: localState.gamesByName,
-            };
-          } else {
-            return {
-              ...localState,
-              onlyFilterByCreationForAll: [],
-              onlyFilterByCreationForNames: [],
-              gamesToRender: localState.allVideogames,
-            };
-          }
-        } else if (
-          action.orderApplied === false &&
-          action.filterByGenreApplied === true
-        ) {
-          if (localState.gamesByName.length > 0) {
-            return {
-              ...localState,
-              onlyFilterByCreationForAll: [],
-              onlyFilterByCreationForNames: [],
-              gamesToRender: localState.onlyFilterByGenreForNames,
-            };
-          } else {
-            return {
-              ...localState,
-              onlyFilterByCreationForAll: [],
-              onlyFilterByCreationForNames: [],
-              gamesToRender: localState.onlyFilterByGenreForAll,
-            };
-          }
-        } else if (
-          action.filterByGenreApplied === false &&
-          action.orderApplied === true
-        ) {
-          if (localState.gamesByName.length > 0) {
-            return {
-              ...localState,
-              onlyFilterByCreationForAll: [],
-              onlyFilterByCreationForNames: [],
-              gamesToRender: localState.onlyOrderForNames,
-            };
-          } else {
-            return {
-              ...localState,
-              onlyFilterByCreationForAll: [],
-              onlyFilterByCreationForNames: [],
-              gamesToRender: localState.onlyOrderForAll,
-            };
-          }
-        } else if (
-          action.orderApplied === true &&
-          action.filterByGenreApplied === true
-        ) {
-          if (localState.gamesByName.length > 0) {
-            return {
-              ...localState,
-              onlyFilterByCreationForAll: [],
-              onlyFilterByCreationForNames: [],
-              gamesToRender: localState.onlyOrderForNames.filter((g) =>
-                filteringByGenres(g, action.inputForFilterByGenre)
-              ),
-            };
-          } else {
-            return {
-              ...localState,
-              onlyFilterByCreationForAll: [],
-              onlyFilterByCreationForNames: [],
-              gamesToRender: localState.onlyOrderForAll.filter((g) =>
-                filteringByGenres(g, action.inputForFilterByGenre)
-              ),
-            };
-          }
+        if (action.flags.id === 1) {
+          return {
+            ...localState,
+            gamesToRender: localState.allVideogames,
+            onlyFilterByCreationForAll: [],
+            onlyFilterByCreationForNames: [],
+          };
+        } else if (action.flags.id === 2) {
+          return {
+            ...localState,
+            gamesToRender: localState.onlyFilterByGenreForAll,
+            onlyFilterByCreationForAll: [],
+            onlyFilterByCreationForNames: [],
+          };
+        } else if (action.flags.id === 3) {
+          return {
+            ...localState,
+            gamesToRender: localState.onlyOrderForAll,
+            onlyFilterByCreationForAll: [],
+            onlyFilterByCreationForNames: [],
+          };
+        } else if (action.flags.id === 4) {
+          return {
+            ...localState,
+            gamesToRender: localState.onlyOrderForAll.filter((g) =>
+              filteringByGenres(g, action.inputForFilterByGenre)
+            ),
+            onlyFilterByCreationForAll: [],
+            onlyFilterByCreationForNames: [],
+          };
         }
       }
+    }
+    case SET_FLAG_SOME_FILTER_APPLIED: {
+      return {
+        ...localState,
+        someFilterApplied: true,
+      };
     }
     default:
       return localState;

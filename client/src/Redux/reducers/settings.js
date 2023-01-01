@@ -53,7 +53,7 @@ export const settings = (localState = initialState, action) => {
         return {
           ...localState,
           inputForFilterByCreation: action.payload,
-          filterByCreationApplied: action.payload,
+          filterByCreationApplied: true,
         };
       }
     }
@@ -88,7 +88,7 @@ export const settings = (localState = initialState, action) => {
     case RESET_INPUT_FILTER_BY_CREATION:{
       return {
         ...localState,
-        inputForFilterByGenre: "NO FILTER",
+        inputForFilterByCreation: "NO FILTER",
         filterByCreationApplied: false,
       };
     }

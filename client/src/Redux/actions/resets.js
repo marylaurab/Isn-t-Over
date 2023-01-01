@@ -6,6 +6,7 @@ import {
   RESET_INPUT_SEARCHBAR,
   RESET_GAMES_BY_NAME,
   RESET_FETCHING,
+  RESET_SOME_APPLIED_FILTER_FLAG,
   CLEAN_GAMES_TO_RENDER,
 } from "./-index";
 
@@ -52,13 +53,8 @@ export const resetFetching = () => {
     type: RESET_FETCHING,
   };
 };
-
-//PARA USARLA EN COMPONENTE HOME
-// export const resetHome = () => {
-//   dispatch(resetGamesToRender());
-//   dispatch(cleanGamesToRender());
-//   dispatch(resetInputOrder());
-//   dispatch(resetInputFilter());
-//   dispatch(resetGamesByName());
-//   dispatch(resetFetching());
-// };
+ export const resetSomeAppliedFilterFlag=()=>{
+  return {
+    type:RESET_SOME_APPLIED_FILTER_FLAG
+  }
+ }

@@ -2,8 +2,8 @@ import {
   fetch,
   GET_ALL_VIDEOGAMES,
   GET_ALL_BY_NAME,
-  // SAVED_BY_NAME,
   GET_ALL_GENRES,
+  GET_DETAILS,
 } from "./-index";
 
 export const getAllVideogames = () => {
@@ -30,10 +30,12 @@ export const getAllByName = (nameGame) => {
   };
 };
 
-
-// export const savedByName = () => {
-//   //cambie nombre
-//   return {
-//     type: SAVED_BY_NAME,
-//   };
-// };
+export const getDetailGame = (id) => {
+  return async function (dispatch) {
+    return fetch(`http://localhost:3001/videogames/${id}`).then((response) =>
+      response
+        .json()
+        .then((json) => dispatch({ type: GET_DETAILS, payload: json }))
+    );
+  };
+};

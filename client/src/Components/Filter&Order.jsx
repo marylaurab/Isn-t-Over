@@ -3,6 +3,7 @@ import {
   setInputFilterByGenre,
   setInputOrder,
   setInputFilterByCreation,
+  setFlagSomeFilterApplied
 } from "../Redux/actions/sets";
 import { filterByGenres, filterByCreation } from "../Redux/actions/filters";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +17,7 @@ export default function FilterAndOrder() {
     (state) => state.settings.inputForFilterByCreation
   );
   const genres = useSelector((state) => state.mainData.genres);
+  const gamesByName = useSelector((state) => state.mainData.gamesByName);
   const toOrder = (e) => {
     dispatch(setInputOrder(e.target.value));
     dispatch(order(e.target.value));
@@ -23,11 +25,13 @@ export default function FilterAndOrder() {
   const toFilterByGenre = (e) => {
     dispatch(filterByGenres(e.target.value));
     dispatch(setInputFilterByGenre(e.target.value));
+    dispatch(setFlagSomeFilterApplied())
   };
 
   const toFilterByCreation = (e) => {
     dispatch(filterByCreation(e.target.value));
     dispatch(setInputFilterByCreation(e.target.value));
+    dispatch(setFlagSomeFilterApplied())
   };
 
   return (
@@ -54,12 +58,7 @@ export default function FilterAndOrder() {
             </option>
             <option value={"NO FILTER"}>{"NO FILTER"}</option>
             {genres.map((genre, i) => (
-              <option
-                key={i}
-                value={
-                  genre.name ? genre.name : genre
-                }
-              >
+              <option key={i} value={genre.name ? genre.name : genre}>
                 {genre.name ? genre.name : genre}
               </option>
             ))}
@@ -67,13 +66,15 @@ export default function FilterAndOrder() {
         </div>
         <div>
           FILTER BY TYPE CREATION:
-          <select onChange={(e) => toFilterByCreation(e)}>
+          <select
+            onChange={(e) => toFilterByCreation(e)}
+            disabled={gamesByName && gamesByName.length > 0 ? true : false}
+          >
             <option hidden value="hidden">
               {inputForFilterByCreation}
             </option>
             <option value={"NO FILTER"}>{"NO FILTER"}</option>
             <option value={"CREATED"}>{"CREATED"}</option>
-            <option value={"EXISTING"}>{"EXISTING"}</option>
           </select>
         </div>
       </div>

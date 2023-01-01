@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const { Op } = require("sequelize");
+// const { Op } = require("sequelize");
 const { Videogame, Genre } = require("../db.js");
 const {
   getApiGames,
@@ -7,7 +7,7 @@ const {
   getApiByName,
   getDbByName,
 } = require("./auxiliar-Videogame.js");
-const { API_KEY } = process.env
+const { API_KEY } = process.env;
 
 const getAllGames = async () => {
   try {
@@ -68,21 +68,24 @@ const getGameById = async (id) => {
       detailsApi = {
         id: aux.id,
         title: aux.name,
-        description: aux.description.replace(/<[^>]*>?/g, '').replace(/(\r\n|\n|\r)/gm, ''),
+        description: aux.description
+          .replace(/<[^>]*>?/g, "")
+          .replace(/(\r\n|\n|\r)/gm, "")
+          .replaceAll("&#39;s", "'s"),
         release: aux.released,
         image: aux.background_image,
         rating: aux.rating,
         platforms: aux.parent_platforms?.map((p) => p.platform.name),
         genres: aux.genres?.map((g) => g.name),
       };
-      // console.log('FROM API:', detailsApi)
+
       return detailsApi;
     } catch (error) {
       throw Error(error.message);
     }
   }
 };
-getGameById("6")
+
 const createVideogame = async (
   title,
   description,
@@ -100,25 +103,59 @@ const createVideogame = async (
       image,
       rating,
       platforms,
-      genres,
     });
-    let genre = await Genre.findAll({
-      where: {
-        name: {
-          [Op.in]: genres,
+    for (let name of genres) {
+      const genreFromDB = await Genre.findOne({ where: { name } });
+      await newGame.addGenre(genreFromDB);
+    }
+    // let genre = await Genre.findAll({
+
+    //   where: {
+    //     name: {
+    //       [Op.in]: genres,
+    //     },
+    //   },
+    // });
+    // console.log("GENEROS:", genre)
+    // for(let g of genre) {
+    //   await newGame.addGenre(g);
+    // }
+    // // await newGame.addGenre(genre);
+    // return newGame;
+
+    const gameTobeReturned = await Videogame.findOne({
+      where: { id: newGame.id },
+      include: [
+        {
+          model: Genre,
+          as: "genres",
+          attributes: ["name"],
+          through: {
+            attributes: [],
+          },
         },
-      },
-    });
-    await newGame.addGenre(genre);
-    return newGame;
+      ],
+    }).then((result) => result.toJSON());
+
+    gameTobeReturned.genres = gameTobeReturned.genres.map((g) => g.name);
+
+    return gameTobeReturned;
   } catch (error) {
     throw Error(error);
   }
 };
 
-module.exports={
+// createVideogame("probandoAndo",
+//   "lpm",
+//   "20/22/08",
+//   "https://cnnespanol.cnn.com/wp-content/uploads/2022/07/220713165438-rba-web-nasa-full-169.jpg?quality=100&strip=info&w=384&h=216&crop=1",
+//   "5",
+//   ["Xbox"],
+//   ["Action", "Educational"])
+
+module.exports = {
   getAllGames,
   getAllByName,
   getGameById,
-  createVideogame
-}
+  createVideogame,
+};

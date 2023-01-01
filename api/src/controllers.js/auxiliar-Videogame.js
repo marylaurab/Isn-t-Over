@@ -1,15 +1,13 @@
 const fetch = require("node-fetch");
 const { Op } = require("sequelize");
 const { Videogame, Genre } = require("../db.js");
-const {API_KEY} = process.env;
+const { API_KEY } = process.env;
 
 const getApiGames = async () => {
   const apiGames = [];
   for (let i = 1; i < 6; i++) {
     try {
-      await fetch(
-        `https://api.rawg.io/api/games?key=${API_KEY}&page=${i}`
-      )
+      await fetch(`https://api.rawg.io/api/games?key=${API_KEY}&page=${i}`)
         .then((response) => response.json())
         .then((data) => {
           data.results.forEach((game) => {
@@ -28,19 +26,24 @@ const getApiGames = async () => {
       throw Error(error.message);
     }
   }
-  
+
   return apiGames;
 };
-getApiGames();
+
 const getDbGames = async () => {
   try {
     const dbGames = await Videogame.findAll({
       include: {
         model: Genre,
+        as: "genres", //agregado
         attributes: ["name"],
         through: { attributes: [] },
       },
     }).then((data) => data.map((g) => g.toJSON()));
+    for (let game of dbGames) {
+      game.genres = game.genres?.map((g) => g.name);
+    }
+    //agregado
     return dbGames;
   } catch (error) {
     throw Error(error.message);
@@ -77,8 +80,10 @@ const getApiByName = async (nameGame) => {
 const getDbByName = async (nameGame) => {
   try {
     let gamesDbByName = await Videogame.findAll({
+      // where: { title: { [Op.substring]: nameGame } },
       include: {
         model: Genre,
+        as: "genres", //agregado
         attributes: ["name"],
         through: { attributes: [] },
       },
@@ -88,6 +93,9 @@ const getDbByName = async (nameGame) => {
         },
       },
     }).then((data) => data.map((g) => g.toJSON()));
+    for (let game of gamesDbByName) {
+      game.genres = game.genres?.map((g) => g.name);
+    }
     return gamesDbByName;
   } catch (error) {
     throw Error(error.message);
