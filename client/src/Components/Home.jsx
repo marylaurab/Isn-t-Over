@@ -5,7 +5,12 @@ import CardGame from "./CardGame";
 import Pagination from "./Pagination";
 import SearchBar from "./SearchBar";
 import FilterAndOrder from "./Filter&Order";
-import { getAllVideogames, getAllGenres,getDetailGame } from "../Redux/actions/data";
+import {
+  getAllVideogames,
+  getAllGenres,
+  getDetailGame,
+  getPlatforms,
+} from "../Redux/actions/data";
 import { setAuxPaginate, setPages, setSubPages } from "../Redux/actions/pages";
 import {
   resetFetching,
@@ -41,6 +46,7 @@ export default function Home() {
     if (gamesToRender.length === 0) {
       dispatch(getAllVideogames());
       dispatch(getAllGenres());
+      dispatch(getPlatforms());
     }
   }, []);
 
@@ -92,10 +98,13 @@ export default function Home() {
         <Link to="/">
           <button onClick={backButton}>back</button>
         </Link>
+        <Link to="/creategame">
+          <button>Create game</button>
+        </Link>
         <SearchBar />
         <FilterAndOrder />
         {gamesToRender.slice(firstIndex, lastIndex).map((g, i) => (
-          <div key={g.id} onClick={()=>getDetail(g.id)}>
+          <div key={g.id} onClick={() => getDetail(g.id)}>
             <Link to={`/videogames/${g.id}`}>
               <CardGame
                 id={g.id}

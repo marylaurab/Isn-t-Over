@@ -4,6 +4,7 @@ import {
   SET_BY_NAME,
   GET_ALL_GENRES,
   GET_DETAILS,
+  GET_PLATFORMS,
   RESET_GAMES_TO_RENDER,
   RESET_GAMES_BY_NAME,
   RESET_FETCHING,
@@ -23,6 +24,7 @@ let initialState = {
   gamesByName: [],
   genres: [],
   detailGame: [],
+  platforms:[],
 
   successFetch: true,
   someFilterApplied: false,
@@ -73,6 +75,12 @@ export const mainData = (localState = initialState, action) => {
         ...localState,
         detailGame: action.payload,
       };
+    }
+    case GET_PLATFORMS:{
+      return {
+        ...localState,
+        platforms: action.payload
+      }
     }
     case RESET_GAMES_TO_RENDER: {
       return {

@@ -4,6 +4,7 @@ export const GET_ALL_VIDEOGAMES = "GET_ALL_VIDEOGAMES";
 export const GET_ALL_BY_NAME = "GET_ALL_BY_NAME";
 export const GET_ALL_GENRES = "GET_ALL_GENRES";
 export const GET_DETAILS="GET_DETAILS";
+export const GET_PLATFORMS="GET_PLATFORMS";
 
 export const PREV_PAGE = "PREV_PAGE";
 export const NEXT_PAGE = "NEXT_PAGE";

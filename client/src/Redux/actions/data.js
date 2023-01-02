@@ -4,6 +4,7 @@ import {
   GET_ALL_BY_NAME,
   GET_ALL_GENRES,
   GET_DETAILS,
+  GET_PLATFORMS,
 } from "./-index";
 
 export const getAllVideogames = () => {
@@ -37,5 +38,13 @@ export const getDetailGame = (id) => {
         .json()
         .then((json) => dispatch({ type: GET_DETAILS, payload: json }))
     );
+  };
+};
+
+export const getPlatforms = () => {
+  return async function (dispatch) {
+    return fetch("http://localhost:3001/platforms")
+      .then((response) => response.json())
+      .then((json) => dispatch({ type: GET_PLATFORMS, payload: json }));
   };
 };
