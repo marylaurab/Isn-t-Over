@@ -22,6 +22,7 @@ import {
   resetInputSearch,
   resetInputFilterByCreation,
   resetSomeAppliedFilterFlag,
+  resetAxiosFlag
 } from "../Redux/actions/resets";
 import { setByName } from "../Redux/actions/sets";
 
@@ -47,7 +48,7 @@ export default function Home() {
       dispatch(getAllVideogames());
       dispatch(getAllGenres());
       dispatch(getPlatforms());
-    }
+   }
   }, []);
 
   useEffect(() => {
@@ -68,6 +69,7 @@ export default function Home() {
     dispatch(resetInputSearch());
     dispatch(resetFetching());
     dispatch(resetSomeAppliedFilterFlag());
+    dispatch(resetAxiosFlag());
   };
 
   const agree = () => {
@@ -135,7 +137,7 @@ export default function Home() {
     <div>
       <SearchBar />
       <h3>Can not found any game with that name</h3>
-      <h6>Please, check the provided info</h6>
+      <h6>Please, check the info provided</h6>
       <button onClick={agree}>I agree!</button>
     </div>
   );

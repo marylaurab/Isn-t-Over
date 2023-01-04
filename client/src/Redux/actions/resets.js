@@ -7,18 +7,17 @@ import {
   RESET_GAMES_BY_NAME,
   RESET_FETCHING,
   RESET_SOME_APPLIED_FILTER_FLAG,
+  RESET_AXIOS_FLAG,
   CLEAN_GAMES_TO_RENDER,
 } from "./-index";
 
 export const resetGamesToRender = () => {
-  //OJO CON CAMBIAR NOMBRE
   return {
     type: RESET_GAMES_TO_RENDER,
   };
 };
 export const cleanGamesToRender = () => {
   return {
-    //no existia antes.. para el boton back
     type: CLEAN_GAMES_TO_RENDER,
   };
 };
@@ -48,7 +47,7 @@ export const resetGamesByName = () => {
   };
 };
 export const resetFetching = () => {
-  //cambie nombre
+
   return {
     type: RESET_FETCHING,
   };
@@ -56,5 +55,10 @@ export const resetFetching = () => {
  export const resetSomeAppliedFilterFlag=()=>{
   return {
     type:RESET_SOME_APPLIED_FILTER_FLAG
+  }
+ };
+ export const resetAxiosFlag=()=>{
+  return{
+    type:RESET_AXIOS_FLAG
   }
  }

@@ -26,7 +26,7 @@ export default function Detail() {
       <div>
         <h6>GENRES:</h6>
         {detailGame.genres?.map((g, i) => (
-          <span key={i}>{g} </span>
+          <span key={i}>{g.name? g.name :g} </span>
         ))}
       </div>
       <p>{`${detailGame.description}`}</p>

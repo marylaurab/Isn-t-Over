@@ -1,15 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import {
-//   prevPage,
-//   nxtPage,
-//   specificPage,
-//   prevSubPages,
-//   nxtSubPages,
-//   setSubPages,
-//   setNextPivot,
-//   setPrevPivot,
-// } from "../Redux/actions/index";
+
 import {
   setSubPages,
   prevSubPages,
@@ -22,10 +13,6 @@ import {
 } from "../Redux/actions/pages";
 export default function Pagination({ currentPage, totalPagesToRender }) {
   const dispatch = useDispatch();
-  // const currentSubPage = useSelector((state) => state.currentSubPage);
-  // const indexes = useSelector((state) => state.indexes);
-  // const conditional = useSelector((state) => state.conditional);
-  // const renderSubPages = useSelector((state) => state.renderSubPages);
 
   const currentSubPage = useSelector((state) => state.paginate.currentSubPage);
   const indexes = useSelector((state) => state.paginate.indexes);

@@ -5,10 +5,12 @@ import {
   GET_ALL_GENRES,
   GET_DETAILS,
   GET_PLATFORMS,
+  POST_GAME,
   RESET_GAMES_TO_RENDER,
   RESET_GAMES_BY_NAME,
   RESET_FETCHING,
   RESET_SOME_APPLIED_FILTER_FLAG,
+  RESET_AXIOS_FLAG,
   CLEAN_GAMES_TO_RENDER,
   ORDER_BY,
   FILTER_BY_GENRES,
@@ -24,8 +26,9 @@ let initialState = {
   gamesByName: [],
   genres: [],
   detailGame: [],
-  platforms:[],
+  platforms: [],
 
+  successAxios: true,
   successFetch: true,
   someFilterApplied: false,
 
@@ -76,10 +79,23 @@ export const mainData = (localState = initialState, action) => {
         detailGame: action.payload,
       };
     }
-    case GET_PLATFORMS:{
+    case GET_PLATFORMS: {
       return {
         ...localState,
-        platforms: action.payload
+        platforms: action.payload,
+      };
+    }
+    case POST_GAME: {
+      if (Object.keys(action.payload).length === 0) {
+        return {
+          ...localState,
+          successAxios: false,
+        };
+      } else {
+        return {
+          ...localState,
+          successAxios: true,
+        };
       }
     }
     case RESET_GAMES_TO_RENDER: {
@@ -105,6 +121,12 @@ export const mainData = (localState = initialState, action) => {
         ...localState,
         someFilterApplied: false,
       };
+    }
+    case RESET_AXIOS_FLAG:{
+      return {
+        ...localState,
+        successAxios: true,
+      }
     }
     case CLEAN_GAMES_TO_RENDER: {
       return {

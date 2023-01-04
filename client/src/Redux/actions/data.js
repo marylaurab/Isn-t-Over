@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   fetch,
   GET_ALL_VIDEOGAMES,
@@ -5,6 +6,7 @@ import {
   GET_ALL_GENRES,
   GET_DETAILS,
   GET_PLATFORMS,
+  POST_GAME,
 } from "./-index";
 
 export const getAllVideogames = () => {
@@ -46,5 +48,15 @@ export const getPlatforms = () => {
     return fetch("http://localhost:3001/platforms")
       .then((response) => response.json())
       .then((json) => dispatch({ type: GET_PLATFORMS, payload: json }));
+  };
+};
+
+export const postNewGame = (game) => {
+  return async function (dispatch) {
+    const createdGame = await axios.post(
+      "http://localhost:3001/videogames",
+      game
+    );
+    return dispatch({type: POST_GAME, payload: createdGame})
   };
 };

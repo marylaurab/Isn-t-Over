@@ -21,11 +21,11 @@ module.exports = (sequelize) => {
       },
       release: {
         type: DataTypes.DATEONLY,
-        defaultValue: DataTypes.NOW,
+        allowNull: false,
       },
       rating: {
         type: DataTypes.DECIMAL,
-        defaultValue: 1,
+        allowNull: false,
         validate: {
           min: 1,
           max: 5,

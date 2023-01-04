@@ -35,7 +35,7 @@ export const paginate = (localState = initialState, action) => {
         ),
         conditional: Math.ceil(
           Math.ceil(action.payload.length / localState.perPage) /
-            localState.perSubPages
+            localState.perSubPages //cambiar nombre de condicional al totalSubPagesToRender
         ),
       };
     }
