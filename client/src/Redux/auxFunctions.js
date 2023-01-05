@@ -52,7 +52,7 @@ export const directoryOrderApplied = [
   { name: "LEAST RATING", sortToApply: ratingDes },
   { name: "NO ORDER", sortToApply: null },
 ];
-//en order_by en su action, buscare el directoryOrderA y directoryOrderNA, uno para uasar cuando no se no order y otro para cuando si sea y hayan condicionales
+
 export const directoryOrderNoApplied = [
   {
     id: 1,
@@ -219,4 +219,28 @@ export const filteringCreationDirectory = (
   } else {
     return false;
   }
+};
+
+export const sortDisplayGenre = (m,n) => {
+  if (m.name && n.name) {
+    let nameM = m.name.toLowerCase();
+    let nameN = n.name.toLowerCase();
+    if (nameM > nameN) return 1;
+    if (nameN > nameM) return -1;
+    return 0;
+  } else {
+    let nameM = m.toLowerCase();
+    let nameN = n.toLowerCase();
+    if (nameM > nameN) return 1;
+    if (nameN > nameM) return -1;
+    return 0;
+  }
+};
+
+export const sortDisplayPlatforms = (m,n) => {
+  let platformM = m.toLowerCase();
+  let platformN = n.toLowerCase();
+  if (platformM > platformN) return 1;
+  if (platformN > platformM) return -1;
+  return 0;
 };

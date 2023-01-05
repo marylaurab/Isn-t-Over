@@ -8,6 +8,7 @@ import {
   POST_GAME,
   RESET_GAMES_TO_RENDER,
   RESET_GAMES_BY_NAME,
+  RESET_DETAIL_GAME,
   RESET_FETCHING,
   RESET_SOME_APPLIED_FILTER_FLAG,
   RESET_AXIOS_FLAG,
@@ -18,14 +19,14 @@ import {
   SET_FLAG_SOME_FILTER_APPLIED,
 } from "../actions/-index";
 
-import { filteringByGenres, filteringByCreated } from "../auxFunctions";
+import { filteringByGenres, filteringByCreated, sortDisplayGenre, sortDisplayPlatforms } from "../auxFunctions";
 
 let initialState = {
   allVideogames: [],
   gamesToRender: [],
   gamesByName: [],
   genres: [],
-  detailGame: [],
+  detailGame: {},
   platforms: [],
 
   successAxios: true,
@@ -54,7 +55,7 @@ export const mainData = (localState = initialState, action) => {
     case GET_ALL_GENRES: {
       return {
         ...localState,
-        genres: action.payload,
+        genres: action.payload.sort(sortDisplayGenre),
       };
     }
     case GET_ALL_BY_NAME: {
@@ -82,7 +83,7 @@ export const mainData = (localState = initialState, action) => {
     case GET_PLATFORMS: {
       return {
         ...localState,
-        platforms: action.payload,
+        platforms: action.payload.sort(sortDisplayPlatforms),
       };
     }
     case POST_GAME: {
@@ -109,6 +110,12 @@ export const mainData = (localState = initialState, action) => {
         ...localState,
         gamesByName: [],
       };
+    }
+    case RESET_DETAIL_GAME:{
+      return {
+        ...localState,
+        detailGame: []
+      }
     }
     case RESET_FETCHING: {
       return {

@@ -5,6 +5,7 @@ import {
   RESET_INPUT_FILTER_BY_CREATION,
   RESET_INPUT_SEARCHBAR,
   RESET_GAMES_BY_NAME,
+  RESET_DETAIL_GAME,
   RESET_FETCHING,
   RESET_SOME_APPLIED_FILTER_FLAG,
   RESET_AXIOS_FLAG,
@@ -46,6 +47,12 @@ export const resetGamesByName = () => {
     type: RESET_GAMES_BY_NAME,
   };
 };
+
+export const resetDetailGame=()=>{
+  return {
+    type:RESET_DETAIL_GAME
+  }
+}
 export const resetFetching = () => {
 
   return {

@@ -1,9 +1,20 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { resetDetailGame } from "../Redux/actions/resets";
 
 export default function Detail() {
   const detailGame = useSelector((state) => state.mainData.detailGame);
-  return (
+  const dispatch = useDispatch();
+
+  const toBack = () => {
+    dispatch(resetDetailGame());
+  };
+
+  return detailGame && Object.keys(detailGame).length > 0 ? (
     <div>
+      <Link to="/videogames">
+        <button onClick={toBack}>back home</button>
+      </Link>
       <div>
         <h1>{`${detailGame.title}`}</h1>
       </div>
@@ -26,10 +37,12 @@ export default function Detail() {
       <div>
         <h6>GENRES:</h6>
         {detailGame.genres?.map((g, i) => (
-          <span key={i}>{g.name? g.name :g} </span>
+          <span key={i}>{g.name ? g.name : g} </span>
         ))}
       </div>
       <p>{`${detailGame.description}`}</p>
     </div>
+  ) : (
+    <img src="https://www.globalreporting.org/styles/assets/images/circle-loading-gif.gif" />
   );
 }
