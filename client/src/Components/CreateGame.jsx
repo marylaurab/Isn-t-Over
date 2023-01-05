@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { postNewGame } from "../Redux/actions/data";
 import { useHistory } from "react-router-dom";
@@ -12,7 +13,7 @@ import {
   resetSomeAppliedFilterFlag,
   resetAxiosFlag,
 } from "../Redux/actions/resets";
-
+import scrolling from "../cssComponents/CreateGame.module.css";
 export default function CreateGame() {
   const date = new Date();
   const today = date.toLocaleDateString();
@@ -27,6 +28,7 @@ export default function CreateGame() {
     title: "",
     description: "",
     release: "",
+    image: undefined,
     rating: 1,
     platforms: [],
     genres: [],
@@ -36,6 +38,8 @@ export default function CreateGame() {
   const [errors, setErrors] = useState({});
   const [displayPlatforms, setDisplayPlatforms] = useState(false);
   const [displayGenres, setGenres] = useState(false);
+  const [selectedPlatforms, setSelectedPlatforms] = useState([]);
+  const [selectedGenres, setSelectedGenres] = useState([]);
 
   const validate = (inputToValidate) => {
     let foundErrors = {};
@@ -70,6 +74,15 @@ export default function CreateGame() {
           "Month, day, year or separator symbols are incorret";
       }
     }
+    if (inputToValidate.image) {
+      if (
+        !/https?\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,}/.test(
+          inputToValidate.image
+        )
+      ) {
+        foundErrors.image = "Invalid link";
+      }
+    }
 
     if (displayPlatforms && inputToValidate.platforms.length === 0) {
       foundErrors.platforms = "You have to choose at least 1 platform";
@@ -80,6 +93,7 @@ export default function CreateGame() {
     }
     return foundErrors;
   };
+
   const handlerChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
@@ -88,32 +102,38 @@ export default function CreateGame() {
     setErrors(validate(inputs));
   }, [inputs, displayPlatforms, displayGenres]);
 
-  const addGenre = (id) => {
+  const addGenre = (id, i) => {
     let checkboxClicked = document.getElementById(id);
     if (checkboxClicked.checked) {
       if (inputs.genres.includes(id)) {
         return;
       } else {
         setInputs({ ...inputs, genres: [...inputs.genres, id] });
+        setSelectedGenres((old) => setSelectedGenres([...old, i]));
       }
     } else {
       setInputs({ ...inputs, genres: inputs.genres.filter((g) => g !== id) });
+      setSelectedGenres((old) => setSelectedGenres(old.filter((g) => g !== i)));
     }
   };
 
-  const addPlatform = (id) => {
+  const addPlatform = (id, i) => {
     let checkboxClicked = document.getElementById(id);
     if (checkboxClicked.checked) {
       if (inputs.platforms.includes(id)) {
         return;
       } else {
         setInputs({ ...inputs, platforms: [...inputs.platforms, id] });
+        setSelectedPlatforms((old) => setSelectedPlatforms([...old, i]));
       }
     } else {
       setInputs({
         ...inputs,
         platforms: inputs.platforms.filter((p) => p !== id),
       });
+      setSelectedPlatforms((old) =>
+        setSelectedPlatforms(old.filter((p) => p !== i))
+      );
     }
   };
 
@@ -137,27 +157,36 @@ export default function CreateGame() {
     } else {
       dispatch(postNewGame(inputs));
       if (successAxios) {
+        cleaningHome();
         alert("The videogame was created successfully");
-        setInputs(initialValues);
-        dispatch(getAllVideogames());
-        dispatch(resetInputOrder());
-        dispatch(resetInputFilterByGenre());
-        dispatch(resetInputFilterByCreation());
-        dispatch(resetInputSearch());
-        dispatch(resetFetching());
-        dispatch(resetSomeAppliedFilterFlag());
-        dispatch(resetAxiosFlag());
-        history.push("/videogames");
+
+        history.push("/videogames"); //esto podria ir en el boton de click ir al home luego de crearlo correctamente
       } else {
         alert("Sorry! an error occurred. Try again.");
         setInputs(initialValues);
+        dispatch(resetAxiosFlag());
       }
     }
   };
 
+  const cleaningHome = () => {
+    setInputs(initialValues);
+    dispatch(getAllVideogames());
+    dispatch(resetInputOrder());
+    dispatch(resetInputFilterByGenre());
+    dispatch(resetInputFilterByCreation());
+    dispatch(resetInputSearch());
+    dispatch(resetFetching());
+    dispatch(resetSomeAppliedFilterFlag());
+  };
+
   return (
     <div>
+      <Link to="/videogames">
+        <button>back home</button>
+      </Link>
       <div>
+        <label>Title: </label>
         <input
           name="title"
           value={inputs.title}
@@ -168,6 +197,7 @@ export default function CreateGame() {
         {errors.title && <p>{errors.title}</p>}
       </div>
       <div>
+        <label>Description: </label>
         <input
           name="description"
           value={inputs.description}
@@ -179,6 +209,7 @@ export default function CreateGame() {
       </div>
 
       <div>
+        <label>Release: </label>
         <input
           name="release"
           value={inputs.release}
@@ -199,72 +230,102 @@ export default function CreateGame() {
         />
       </div> */}
       <div>
+        <label>Image link: </label>
         <input
-          type="url"
-          name="url"
-          id="url"
+          type="link"
+          name="link"
+          id="link"
           value={inputs.image}
           onChange={(e) => receivedImage(e.target.value)}
-          placeholder="https://example.com"
+          placeholder="https://example.jpg"
           pattern="https://.*"
           size="30"
         />
+        {errors.image && <p>{errors.image}</p>}
       </div>
 
       <div>
+        <label>Rating: </label>
         <input
           name="rating"
           value={inputs.rating}
           type="range"
           min="1"
           max="5"
+          step="0.01"
           onChange={handlerChange}
         />
         {<p>{inputs.rating}</p>}
       </div>
       <div>
-        <button
-          onClick={() =>
-            setDisplayPlatforms((old) => setDisplayPlatforms(!old))
-          }
-        >
-          Choose platform/s
-        </button>
+        <label>Platforms: </label>
+        {!displayPlatforms ? (
+          <button
+            onClick={() =>
+              setDisplayPlatforms((old) => setDisplayPlatforms(!old))
+            }
+          >
+            show platforms
+          </button>
+        ) : (
+          <button
+            onClick={() =>
+              setDisplayPlatforms((old) => setDisplayPlatforms(!old))
+            }
+          >
+            hide platforms
+          </button>
+        )}
         {errors.platforms ? <p>{errors.platforms}</p> : <p>{"\u00A0"}</p>}
-        {displayPlatforms &&
-          platforms.map((p, i) => (
-            <label key={i}>
-              {p}
-              <input
-                key={i}
-                id={p}
-                value={inputs.platforms}
-                type="checkbox"
-                onClick={() => addPlatform(p)}
-              />
-              <br />
-            </label>
-          ))}
+        {displayPlatforms && (
+          <div className={scrolling.container}>
+            {platforms.map((p, i) => (
+              <label key={i}>
+                {p}
+                <input
+                  key={i}
+                  id={p}
+                  value={inputs.platforms}
+                  type="checkbox"
+                  checked={selectedPlatforms?.includes(i) ? true : false}
+                  onChange={() => addPlatform(p, i)}
+                />
+                <br />
+              </label>
+            ))}
+          </div>
+        )}
       </div>
       <div>
-        <button onClick={() => setGenres((old) => setGenres(!old))}>
-          Choose genre/s
-        </button>
+        <label>Genres: </label>
+        {!displayGenres ? (
+          <button onClick={() => setGenres((old) => setGenres(!old))}>
+            show genres
+          </button>
+        ) : (
+          <button onClick={() => setGenres((old) => setGenres(!old))}>
+            hide genres
+          </button>
+        )}
         {errors.genres ? <p>{errors.genres}</p> : <p>{"\u00A0"}</p>}
-        {displayGenres &&
-          genres.map((g, i) => (
-            <label key={i}>
-              {g.name ? g.name : g}
-              <input
-                key={i}
-                id={`${g.name ? g.name : g}`}
-                value={inputs.genres}
-                type="checkbox"
-                onClick={() => addGenre(g.name ? g.name : g)}
-              />
-              <br />
-            </label>
-          ))}
+        {displayGenres && (
+          <div className={scrolling.container}>
+            {genres.map((g, i) => (
+              <label key={i}>
+                {g.name ? g.name : g}
+                <input
+                  key={i}
+                  id={`${g.name ? g.name : g}`}
+                  value={inputs.genres}
+                  type="checkbox"
+                  checked={selectedGenres?.includes(i) ? true : false}
+                  onChange={() => addGenre(g.name ? g.name : g, i)}
+                />
+                <br />
+              </label>
+            ))}
+          </div>
+        )}
       </div>
       <button onClick={(e) => handlerSubmit(e)}>create videogame</button>
     </div>

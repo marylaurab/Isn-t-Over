@@ -127,7 +127,6 @@ export default function Home() {
       <img src="https://www.globalreporting.org/styles/assets/images/circle-loading-gif.gif" />
     ) : (
       <div>
-        <SearchBar />
         <h3>Can not found any game </h3>
         <h6>Please, check the provided info</h6>
         <button onClick={agreeGenreNotFound}>I agree!</button>
@@ -135,7 +134,6 @@ export default function Home() {
     )
   ) : (
     <div>
-      <SearchBar />
       <h3>Can not found any game with that name</h3>
       <h6>Please, check the info provided</h6>
       <button onClick={agree}>I agree!</button>
