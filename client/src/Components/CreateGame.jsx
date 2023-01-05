@@ -40,6 +40,10 @@ export default function CreateGame() {
   const [displayGenres, setGenres] = useState(false);
   const [selectedPlatforms, setSelectedPlatforms] = useState([]);
   const [selectedGenres, setSelectedGenres] = useState([]);
+  const [created, setCreated] = useState(false);
+  const [checkInfo, setCheckInfo] = useState(false);
+  const [crashed, setCrashed] = useState(false);
+  const [starting, setStarting] = useState(true);
 
   const validate = (inputToValidate) => {
     let foundErrors = {};
@@ -153,17 +157,24 @@ export default function CreateGame() {
       inputs.platforms.length === 0 ||
       inputs.genres.length === 0
     ) {
-      alert("Please, check the info provided. The data is wrong or missing");
+      setStarting(false);
+      setCheckInfo(true);
+      // alert("Please, check the info provided. The data is wrong or missing");
     } else {
       dispatch(postNewGame(inputs));
       if (successAxios) {
         cleaningHome();
-        alert("The videogame was created successfully");
+        setStarting(false);
+        setCreated(true);
 
-        history.push("/videogames"); //esto podria ir en el boton de click ir al home luego de crearlo correctamente
+        // alert("The videogame was created successfully");
+
+        // history.push("/videogames"); //esto podria ir en el boton de click ir al home luego de crearlo correctamente
       } else {
-        alert("Sorry! an error occurred. Try again.");
-        setInputs(initialValues);
+        // alert("Sorry! an error occurred. Try again.");
+        // setInputs(initialValues);
+        setStarting(false);
+        setCrashed(true);
         dispatch(resetAxiosFlag());
       }
     }
@@ -180,7 +191,7 @@ export default function CreateGame() {
     dispatch(resetSomeAppliedFilterFlag());
   };
 
-  return (
+  return starting? (
     <div>
       <Link to="/videogames">
         <button>back home</button>
@@ -329,5 +340,7 @@ export default function CreateGame() {
       </div>
       <button onClick={(e) => handlerSubmit(e)}>create videogame</button>
     </div>
-  );
+  ) : created? (
+    <h1>se crep</h1>
+  ) : checkInfo? (<h1>chequee info</h1>) : <h1>error en el back</h1>
 }
