@@ -1,6 +1,7 @@
 const fetch = require("node-fetch");
 // const { Op } = require("sequelize");
 const { Videogame, Genre } = require("../db.js");
+
 const {
   getApiGames,
   getDbGames,
@@ -93,7 +94,7 @@ const createVideogame = async (
   image,
   rating,
   platforms,
-  genres
+  genres,
 ) => {
   try {
     let newGame = await Videogame.create({
@@ -104,6 +105,7 @@ const createVideogame = async (
       rating,
       platforms,
     });
+
     for (let name of genres) {
       const genreFromDB = await Genre.findOne({ where: { name } });
       await newGame.addGenre(genreFromDB);
@@ -145,13 +147,7 @@ const createVideogame = async (
   }
 };
 
-// createVideogame("probandoAndo",
-//   "lpm",
-//   "20/22/08",
-//   "https://cnnespanol.cnn.com/wp-content/uploads/2022/07/220713165438-rba-web-nasa-full-169.jpg?quality=100&strip=info&w=384&h=216&crop=1",
-//   "5",
-//   ["Xbox"],
-//   ["Action", "Educational"])
+
 
 module.exports = {
   getAllGames,

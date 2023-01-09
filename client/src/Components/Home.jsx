@@ -5,6 +5,8 @@ import CardGame from "./CardGame";
 import Pagination from "./Pagination";
 import SearchBar from "./SearchBar";
 import FilterAndOrder from "./Filter&Order";
+import FilterNotFound from "./alertsComponents/FilterNotFound";
+import NameNotFound from "./alertsComponents/NameNotFound";
 import {
   getAllVideogames,
   getAllGenres,
@@ -47,7 +49,7 @@ export default function Home() {
     if (gamesToRender.length === 0) {
       dispatch(getAllVideogames());
       dispatch(getAllGenres());
-      dispatch(getPlatforms());
+      // dispatch(getPlatforms());
    }
   }, []);
 
@@ -72,12 +74,11 @@ export default function Home() {
     dispatch(resetAxiosFlag());
   };
 
-  const agree = () => {
-    resetHome();
-  };
-  const agreeGenreNotFound = () => {
+ 
+
+  const agreeFilterNotFound = () => {
     if (gamesByName.length === 0) {
-      agree();
+      resetHome(); 
       return;
     }
 
@@ -126,17 +127,11 @@ export default function Home() {
     ) : gamesToRender.length === 0 && !someFilterApplied ? (
       <img src="https://www.globalreporting.org/styles/assets/images/circle-loading-gif.gif" />
     ) : (
-      <div>
-        <h3>Can not found any game </h3>
-        <h6>Please, check the provided info</h6>
-        <button onClick={agreeGenreNotFound}>I agree!</button>
-      </div>
+      <FilterNotFound agreeFilterNotFound={agreeFilterNotFound} />
+    
     )
   ) : (
-    <div>
-      <h3>Can not found any game with that name</h3>
-      <h6>Please, check the info provided</h6>
-      <button onClick={agree}>I agree!</button>
-    </div>
-  );
+    <NameNotFound resetHome={resetHome}/>
+
+  ); //Al any game with that name se le pasaba onClick={agree}
 }

@@ -59,6 +59,7 @@ export default function Pagination({ currentPage, totalPagesToRender }) {
     <div>
       <button onClick={previousSubPages}>{"<<"}</button>
       <button onClick={previosPage}>Prev</button>
+      {currentPage>3? <h5>...</h5>: undefined}
       <ul>
         {renderSubPages.map((p) => (
           <li key={p}>
@@ -68,6 +69,7 @@ export default function Pagination({ currentPage, totalPagesToRender }) {
           </li>
         ))}
       </ul>
+      {currentPage!==totalPagesToRender? <h5>...</h5>: undefined}
       <button onClick={nextPage}>Next</button>
       <button onClick={nextSubPages}>{">>"}</button>
     </div>

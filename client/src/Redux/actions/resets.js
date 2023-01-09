@@ -9,6 +9,7 @@ import {
   RESET_FETCHING,
   RESET_SOME_APPLIED_FILTER_FLAG,
   RESET_AXIOS_FLAG,
+  RESET_PAGINATE,
   CLEAN_GAMES_TO_RENDER,
 } from "./-index";
 
@@ -67,5 +68,10 @@ export const resetFetching = () => {
  export const resetAxiosFlag=()=>{
   return{
     type:RESET_AXIOS_FLAG
+  }
+ };
+ export const resetPaginate=()=>{
+  return {
+    type: RESET_PAGINATE
   }
  }

@@ -9,6 +9,7 @@ import {
   NEXT_SUBPAGE,
   SET_PREVPIVOT,
   SET_NEXTPIVOT,
+  RESET_PAGINATE,
 } from "../actions/-index";
 
 let initialState = {
@@ -25,8 +26,7 @@ let initialState = {
 };
 export const paginate = (localState = initialState, action) => {
   switch (action.type) {
-   
-     case SET_AUX_PAGINATE: {
+    case SET_AUX_PAGINATE: {
       return {
         ...localState,
         totalGames: action.payload.length,
@@ -109,6 +109,13 @@ export const paginate = (localState = initialState, action) => {
       return {
         ...localState,
         currentPage: localState.pages[localState.indexes.l],
+      };
+    }
+    case RESET_PAGINATE: {
+      return {
+        ...localState,
+        currentPage: 1,
+        currentSubPage: 1,
       };
     }
     default:

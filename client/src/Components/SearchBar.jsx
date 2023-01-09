@@ -6,7 +6,8 @@ import {
   resetInputOrder,
   resetInputFilterByGenre,
   cleanGamesToRender,
-  resetSomeAppliedFilterFlag
+  resetSomeAppliedFilterFlag,
+  resetPaginate
 } from "../Redux/actions/resets";
 
 export default function SearchBar() {
@@ -25,6 +26,7 @@ export default function SearchBar() {
       dispatch(resetInputOrder());
       dispatch(resetInputFilterByGenre());
       dispatch(cleanGamesToRender());
+      dispatch(resetPaginate());
       dispatch(getAllByName(input));
       return;
     } else {
