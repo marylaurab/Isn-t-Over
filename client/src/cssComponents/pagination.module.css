@@ -1,0 +1,91 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    max-width: 100vw;
+    max-height: 100vh;
+    margin-top: 98px;
+}
+.divSubPages{
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    margin: 0px;
+    margin-right: 16px;
+}
+.subPages{
+    padding: 2px;
+    border-style: solid;
+    margin: 3px;
+    background: black;
+    color: white;
+    width: 36px;
+    height: 33px;
+    border-radius: 25px;
+}
+.subPages:hover{
+    cursor: pointer;
+    background: #28535a;
+}
+.dotsNext{
+    padding: 4px;
+    margin: 0px;
+    font-size: 1.5rem;
+    margin-left: -12px;
+    margin-right: 6px;
+}
+.dotsNext:hover{
+    cursor: default;
+}
+.dotsPrev:hover{
+    cursor: default;
+}
+.dotsPrev{
+    padding: 4px;
+    margin: 0px;
+    font-size: 1.5rem;
+    margin-left: 2px;
+    margin-right: -35px;
+}
+.divButtons{
+    padding: 2px;
+}
+.buttons{
+    padding: 1px;
+    margin: 1px;
+    border-style: solid;
+    width: 48px;
+    height: 31px;
+    color: white;
+    background: black;
+    border-radius: 24px;
+}
+.buttons:hover{
+    cursor: pointer;
+    background: #28535a;
+}
+.disabledButtons{
+    padding: 1px;
+    margin: 1px;
+    border-style: solid;
+    width: 48px;
+    height: 31px;
+    color: white;
+    background: rgba(0, 0, 0, 0.08);
+    border-radius: 24px;
+}
+.currentPage{
+     padding: 2px;
+    border-style: solid;
+    margin: 3px;
+    background: #cc3e28;
+    color: white;
+    width: 36px;
+    height: 33px;
+    border-radius: 25px;
+
+}
+.currentPage:hover{
+    cursor: pointer;
+    background: #28535a;
+}

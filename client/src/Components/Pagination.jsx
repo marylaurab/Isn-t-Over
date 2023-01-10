@@ -9,8 +9,10 @@ import {
   setNextPivot,
   nxtPage,
   specificPage,
-  prevPage
+  prevPage,
 } from "../Redux/actions/pages";
+import style from "../cssComponents/pagination.module.css";
+
 export default function Pagination({ currentPage, totalPagesToRender }) {
   const dispatch = useDispatch();
 
@@ -18,6 +20,7 @@ export default function Pagination({ currentPage, totalPagesToRender }) {
   const indexes = useSelector((state) => state.paginate.indexes);
   const conditional = useSelector((state) => state.paginate.conditional);
   const renderSubPages = useSelector((state) => state.paginate.renderSubPages);
+  const pages = useSelector((state) => state.paginate.pages);
 
   useEffect(() => {
     dispatch(setSubPages());
@@ -33,8 +36,7 @@ export default function Pagination({ currentPage, totalPagesToRender }) {
     dispatch(prevPage());
   };
   const nextPage = () => {
-    if (currentPage === totalPagesToRender) return; //aca podria codear para renderizar la siguiente pag, o
-    //los botoncitos de punticos
+    if (currentPage === totalPagesToRender) return;
     if (currentPage === renderSubPages[renderSubPages.length - 1]) {
       dispatch(nxtSubPages());
       dispatch(setNextPivot());
@@ -55,23 +57,68 @@ export default function Pagination({ currentPage, totalPagesToRender }) {
     dispatch(nxtSubPages());
     dispatch(setNextPivot());
   };
+
   return (
-    <div>
-      <button onClick={previousSubPages}>{"<<"}</button>
-      <button onClick={previosPage}>Prev</button>
-      {currentPage>3? <h5>...</h5>: undefined}
-      <ul>
-        {renderSubPages.map((p) => (
-          <li key={p}>
-            <button onClick={() => onSpecificPage(p)} key={p}>
-              {p}
-            </button>
-          </li>
-        ))}
-      </ul>
-      {currentPage!==totalPagesToRender? <h5>...</h5>: undefined}
-      <button onClick={nextPage}>Next</button>
-      <button onClick={nextSubPages}>{">>"}</button>
+    <div className={style.container}>
+      <div className={style.divButtons}>
+        <button
+          onClick={previousSubPages}
+          className={
+            currentSubPage === 1 ? style.disabledButtons : style.buttons
+          }
+        >
+          {"<<"}
+        </button>
+        <button
+          onClick={previosPage}
+          className={currentPage === 1 ? style.disabledButtons : style.buttons}
+        >
+          Prev
+        </button>
+      </div>
+      {currentPage > 3 ? <h5 className={style.dotsPrev}>...</h5> : undefined}
+      <div>
+        <ul className={style.divSubPages}>
+          {renderSubPages.map((p) => (
+            <li key={p}>
+              <button
+                onClick={() => onSpecificPage(p)}
+                key={p}
+                className={
+                  p === currentPage ? style.currentPage : style.subPages
+                }
+              >
+                {p}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+      {currentPage !== totalPagesToRender ? (
+        <h5 className={style.dotsNext}>...</h5>
+      ) : undefined}
+      <div className={style.divButtons}>
+        <button
+          onClick={nextPage}
+          className={
+            currentPage === pages.length
+              ? style.disabledButtons
+              : style.buttons
+          }
+        >
+          Next
+        </button>
+        <button
+          onClick={nextSubPages}
+          className={
+            currentSubPage === conditional
+              ? style.disabledButtons
+              : style.buttons
+          }
+        >
+          {">>"}
+        </button>
+      </div>
     </div>
   );
 }

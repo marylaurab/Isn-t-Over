@@ -7,22 +7,17 @@ export default function Landing() {
   const [currentIndex, setCurrenteIndex] = useState(0);
   const [flag, setFlag] = useState(true);
 
-  // useEffect(()=>{
-  //   timer();
-  //   setFlag(false);
-  // },[flag===true])
+ 
+  // setTimeout(() => {
+  //   if (flag) {
+  //     const isLastSlide = currentIndex === slides.length - 1;
+  //     const newIndex = isLastSlide ? 0 : currentIndex + 1;
+  //     setCurrenteIndex(newIndex);
+  //   } else {
+  //     return;
+  //   }
+  // }, 5000);
 
-  // const timer = () => {
-  setTimeout(() => {
-    if (flag) {
-      const isLastSlide = currentIndex === slides.length - 1;
-      const newIndex = isLastSlide ? 0 : currentIndex + 1;
-      setCurrenteIndex(newIndex);
-    } else {
-      return;
-    }
-  }, 5000);
-  // };
 
   const slide = {
     height: "100%",
@@ -37,7 +32,7 @@ export default function Landing() {
     const isLastSlide = currentIndex === slides.length - 1;
     const newIndex = isLastSlide ? 0 : currentIndex + 1;
     setCurrenteIndex(newIndex);
-    // setFlag(true);
+    
   };
 
   const goToPrevious = () => {
@@ -45,7 +40,7 @@ export default function Landing() {
     const isFirstSlide = currentIndex === 0;
     const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1;
     setCurrenteIndex(newIndex);
-    // setFlag(true);
+   
   };
 
   return (
@@ -76,3 +71,36 @@ export default function Landing() {
     </div>
   );
 }
+
+
+// PARA SOLUCIONAR EL SETTIMEOUT:
+// import React, { useEffect, useRef, useState } from "react"
+
+// const Timer = () => {
+//   const [message, setMessage] = useState("Timer Running")
+//   // reference used so that it does not change across renders
+//   let timeoutID = useRef(null)
+//   useEffect(() => {
+//     timeoutID.current = setTimeout(() => {
+//       setMessage("Times Up!")
+//     }, 5000)
+
+//     return () => {
+//       clearTimeout(timeoutID.current)
+//       console.log("timeout cleared")
+//     }
+//   }, [])
+//   return <div>{message}</div>
+// }
+
+// const Timeout = () => {
+//   const [showTimer, setShowTimer] = useState(false)
+//   return (
+//     <div>
+//       <button onClick={() => setShowTimer(!showTimer)}>Toggle Timer</button>
+//       <div>{showTimer && <Timer />}</div>
+//     </div>
+//   )
+// }
+
+// export default Timeout

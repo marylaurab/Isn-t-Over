@@ -1,0 +1,98 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  max-width: 171px;
+  max-height: 286px;
+  margin-left: 6px;
+  margin-top: 105px;
+  border-style: solid;
+  border-radius: 19px;
+  background-color: black;
+}
+.orderContainer {
+  padding: 7px;
+  border-style: ridge;
+  border-radius: 14px;
+  background-color: black;
+  border-color: #cc3e28;
+  margin-top: 6px;
+}
+.orderTitle {
+  text-align: center;
+  padding: 3px;
+  color: white;
+}
+.orderTitle:hover{
+  cursor: default;
+}
+.orderDivSelect {
+  padding: 4px 0px;
+}
+.orderSelect:hover{
+  cursor:pointer
+}
+.orderSelect {
+  border-style: solid;
+  border-radius: 7px;
+  background-color: black;
+  color: white;
+}
+.genreContainer {
+  padding: 7px;
+  border-style: ridge;
+  border-radius: 14px;
+  background-color: black;
+  border-color: #cc3e28;
+  margin-top: 13px;
+}
+.genreTitle {
+  text-align: center;
+  padding: 3px;
+  color: white;
+}
+.genreTitle:hover{
+  cursor: default;
+}
+.genreDivSelect {
+  padding: 4px 0px;
+}
+.genreSelect:hover{
+  cursor:pointer
+}
+.genreSelect {
+  border-style: solid;
+  border-radius: 7px;
+  background-color: black;
+  color: white;
+  max-width: 152px;
+}
+.creationContainer {
+  padding: 7px;
+  border-style: ridge;
+  border-radius: 14px;
+  background-color: black;
+  border-color: #cc3e28;
+  margin-top: 14px;
+}
+.creationTitle {
+  text-align: center;
+  padding: 3px;
+  color: white;
+}
+.creationTitle:hover{
+  cursor: default;
+}
+.creationDivSelect {
+  padding: 4px 0px;
+}
+.creationSelect:hover{
+  cursor:pointer
+}
+.creationSelect {
+  border-style: solid;
+  border-radius: 7px;
+  background-color: black;
+  color: white;
+  width: 153px;
+}

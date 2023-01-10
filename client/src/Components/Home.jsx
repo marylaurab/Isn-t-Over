@@ -24,9 +24,11 @@ import {
   resetInputSearch,
   resetInputFilterByCreation,
   resetSomeAppliedFilterFlag,
-  resetAxiosFlag
+  resetAxiosFlag,
 } from "../Redux/actions/resets";
 import { setByName } from "../Redux/actions/sets";
+import style from "../cssComponents/home.module.css";
+
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -50,7 +52,7 @@ export default function Home() {
       dispatch(getAllVideogames());
       dispatch(getAllGenres());
       // dispatch(getPlatforms());
-   }
+    }
   }, []);
 
   useEffect(() => {
@@ -74,11 +76,9 @@ export default function Home() {
     dispatch(resetAxiosFlag());
   };
 
- 
-
   const agreeFilterNotFound = () => {
     if (gamesByName.length === 0) {
-      resetHome(); 
+      resetHome();
       return;
     }
 
@@ -97,41 +97,54 @@ export default function Home() {
 
   return successFetch ? (
     gamesToRender && gamesToRender.length > 0 ? (
-      <div>
-        <Link to="/">
-          <button onClick={backButton}>back</button>
-        </Link>
-        <Link to="/creategame">
-          <button>Create game</button>
-        </Link>
-        <SearchBar />
-        <FilterAndOrder />
-        {gamesToRender.slice(firstIndex, lastIndex).map((g, i) => (
-          <div key={g.id} onClick={() => getDetail(g.id)}>
-            <Link to={`/videogames/${g.id}`}>
-              <CardGame
-                id={g.id}
-                image={g.image}
-                title={g.title}
-                rating={g.rating}
-                genres={g.genres}
-              />
-            </Link>
+      <div className={style.container}>
+        <div className={style.navBar}>
+          <Link to="/">
+            <button onClick={backButton} className={style.buttons}>
+              back
+            </button>
+          </Link>
+          <SearchBar />
+          <Link to="/creategame">
+            <button className={style.buttons}>post game</button>
+          </Link>
+        </div>
+        <div className={style.filterAndCards}>
+          <div >
+          <FilterAndOrder />
           </div>
-        ))}
+          <div className={style.cardsContainer}>
+            {gamesToRender.slice(firstIndex, lastIndex).map((g) => (
+              <div key={g.id} onClick={() => getDetail(g.id)} className={style.cardContainer}>
+                <Link to={`/videogames/${g.id}`}>
+                  <CardGame
+                    id={g.id}
+                    image={g.image}
+                    title={g.title}
+                    rating={g.rating}
+                    genres={g.genres}
+                  />
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
         <Pagination
           currentPage={currentPage}
           totalPagesToRender={totalPagesToRender}
         />
       </div>
     ) : gamesToRender.length === 0 && !someFilterApplied ? (
-      <img src="https://www.globalreporting.org/styles/assets/images/circle-loading-gif.gif" />
+      <div className={style.divImg}>
+        <img
+          src="https://64.media.tumblr.com/65205bb83beb085f92044a30ef585d50/tumblr_nwle4wbqcE1ujcnnno1_500.gifv"
+          className={style.img}
+        />
+      </div>
     ) : (
       <FilterNotFound agreeFilterNotFound={agreeFilterNotFound} />
-    
     )
   ) : (
-    <NameNotFound resetHome={resetHome}/>
-
+    <NameNotFound resetHome={resetHome} />
   ); //Al any game with that name se le pasaba onClick={agree}
 }

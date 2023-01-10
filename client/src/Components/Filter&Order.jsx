@@ -3,10 +3,12 @@ import {
   setInputFilterByGenre,
   setInputOrder,
   setInputFilterByCreation,
-  setFlagSomeFilterApplied
+  setFlagSomeFilterApplied,
 } from "../Redux/actions/sets";
 import { filterByGenres, filterByCreation } from "../Redux/actions/filters";
 import { useDispatch, useSelector } from "react-redux";
+import style from "../cssComponents/filterAndOrder.module.css";
+
 export default function FilterAndOrder() {
   const dispatch = useDispatch();
   const inputForOrder = useSelector((state) => state.settings.inputForOrder);
@@ -25,34 +27,40 @@ export default function FilterAndOrder() {
   const toFilterByGenre = (e) => {
     dispatch(filterByGenres(e.target.value));
     dispatch(setInputFilterByGenre(e.target.value));
-    dispatch(setFlagSomeFilterApplied())
+    dispatch(setFlagSomeFilterApplied());
   };
 
   const toFilterByCreation = (e) => {
     dispatch(filterByCreation(e.target.value));
     dispatch(setInputFilterByCreation(e.target.value));
-    dispatch(setFlagSomeFilterApplied())
+    dispatch(setFlagSomeFilterApplied());
   };
 
   return (
-    <div>
-      <div>
-        ORDER BY:
-        <select onChange={(e) => toOrder(e)}>
-          <option hidden value="hidden">
-            {inputForOrder}
-          </option>
-          <option value="NO ORDER">{"NO ORDER"}</option>
-          <option value="A>Z">{"A>Z"}</option>
-          <option value="Z>A">{"Z>A"} </option>
-          <option value="GREATEST RATING">{"GREATEST RATING"}</option>
-          <option value="LEAST RATING">{"LEAST RATING"}</option>
-        </select>
+    <div className={style.container}>
+      <div className={style.orderContainer}>
+        <div className={style.orderTitle}>ORDER BY:</div>
+        <div className={style.orderDivSelect}>
+          <select onChange={(e) => toOrder(e)} className={style.orderSelect}>
+            <option hidden value="hidden">
+              {inputForOrder}
+            </option>
+            <option value="NO ORDER">{"NO ORDER"}</option>
+            <option value="A>Z">{"A>Z"}</option>
+            <option value="Z>A">{"Z>A"} </option>
+            <option value="GREATEST RATING">{"GREATEST RATING"}</option>
+            <option value="LEAST RATING">{"LEAST RATING"}</option>
+          </select>
+        </div>
       </div>
-      <div>
-        <div>
-          FILTER BY GENRE:
-          <select onChange={(e) => toFilterByGenre(e)}>
+
+      <div className={style.genreContainer}>
+        <div className={style.genreTitle}>FILTER BY GENRE:</div>
+        <div className={style.genreDivSelect}>
+          <select
+            onChange={(e) => toFilterByGenre(e)}
+            className={style.genreSelect}
+          >
             <option hidden value="hidden">
               {inputForFilterByGenre}
             </option>
@@ -64,11 +72,14 @@ export default function FilterAndOrder() {
             ))}
           </select>
         </div>
-        <div>
-          FILTER BY TYPE CREATION:
+      </div>
+      <div className={style.creationContainer}>
+        <div className={style.creationTitle}>FILTER BY TYPE CREATION:</div>
+        <div className={style.creationDivSelect}>
           <select
             onChange={(e) => toFilterByCreation(e)}
             disabled={gamesByName && gamesByName.length > 0 ? true : false}
+            className={style.creationSelect}
           >
             <option hidden value="hidden">
               {inputForFilterByCreation}

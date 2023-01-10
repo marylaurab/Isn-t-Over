@@ -1,0 +1,28 @@
+.formContainer{
+    padding: 5px;
+    margin-top: 5px;
+    font-size: 18px;
+}
+.input{
+    border-style: solid;
+    border-color: #cc3e28;
+    width: 175px;
+    height: 22px;
+    border-radius: 45px;
+    text-align: center;
+    background-color: black;
+}
+.submit{
+    border-style: solid;
+    border-color: #cc3e28;
+    background-color: black;
+    border-radius: 24px;
+    width: 46px;
+    text-align: center;
+    height: 26px;
+    margin-left: 3px;
+}
+.submit:hover{
+    cursor: pointer;
+    border-color: #28535a;
+}

@@ -9,6 +9,8 @@ import {
   resetSomeAppliedFilterFlag,
   resetPaginate
 } from "../Redux/actions/resets";
+import style from '../cssComponents/searchBar.module.css'
+
 
 export default function SearchBar() {
   const dispatch = useDispatch();
@@ -35,14 +37,15 @@ export default function SearchBar() {
   };
   return (
     <div>
-      <form onSubmit={handlerSubmit}>
+      <form onSubmit={handlerSubmit} className={style.formContainer}>
         <input
           type="text"
           placeholder="search game"
           value={inputForSearch}
           onChange={(e) => handlerChange(e)}
+          className={style.input}
         ></input>
-        <input type="submit" value="search"></input>
+        <input type="submit" value="🔎" className={style.submit}></input>
       </form>
     </div>
   );
