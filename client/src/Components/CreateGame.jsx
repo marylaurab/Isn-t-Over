@@ -376,7 +376,7 @@ export default function CreateGame() {
             onClick={(e) => handlerSubmit(e)}
             className={style.createBotton}
           >
-            create videogame
+            post game
           </button>
         </div>
       </div>

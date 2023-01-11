@@ -137,7 +137,7 @@ export default function Home() {
     ) : gamesToRender.length === 0 && !someFilterApplied ? (
       <div className={style.divImg}>
         <img
-          src="https://64.media.tumblr.com/65205bb83beb085f92044a30ef585d50/tumblr_nwle4wbqcE1ujcnnno1_500.gifv"
+          src="https://gifimage.net/wp-content/uploads/2017/10/buffering-gif-8.gif"
           className={style.img}
         />
       </div>

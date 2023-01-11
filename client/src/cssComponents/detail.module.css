@@ -4,6 +4,18 @@
     flex-direction: column;
     display: flex;
 }
+.divLoading {
+    min-height: 100vh;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .loading {
+    height: 150px;
+    min-width: 150px;
+    border-radius: 100%;
+  }
 .backBar {
     display: flex;
     flex-direction: row;
@@ -25,6 +37,12 @@
     border-color: #cc3e28;
     border-style: solid;
     background-color: black;
+}
+.backButton:hover{
+    cursor: pointer;
+    border-color: black;
+    border-style: solid;
+    background-color: #28535a;
 }
 
 .detailCard{

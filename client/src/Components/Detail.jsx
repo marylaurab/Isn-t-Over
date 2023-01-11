@@ -75,6 +75,11 @@ export default function Detail() {
       </div>
     </div>
   ) : (
-    <img src="https://www.globalreporting.org/styles/assets/images/circle-loading-gif.gif" />
+    <div className={style.divLoading}>
+        <img
+          src="https://gifimage.net/wp-content/uploads/2017/10/buffering-gif-8.gif"
+          className={style.loading}
+        />
+      </div>
   );
 }

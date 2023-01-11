@@ -6,8 +6,8 @@
   align-items: center;
 }
 .img {
-  height: 100vh;
-  min-width: 100vh;
+  height: 150px;
+  min-width: 150px;
   border-radius: 100%;
 }
 

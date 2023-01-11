@@ -1,0 +1,25 @@
+.container{
+    min-height: 100vh;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+.agreeButton{
+    padding: 14px;
+    border-style: solid;
+    border-radius: 16px;
+    font-size: 1.2rem;
+    margin-left: 95px;
+    margin-top: 9px;
+    background-color: #2b303a;
+    color: white;
+    border-color: #cc3e28;
+    border-width: medium;
+}
+.agreeButton:hover{
+    cursor: pointer;
+    background-color: #28535a;
+    border-color: black;
+}
