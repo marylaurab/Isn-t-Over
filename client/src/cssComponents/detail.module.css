@@ -28,13 +28,57 @@
 }
 
 .detailCard{
-    width: 80vw;
-    height: auto;
+    display: flex;
+    width: 70vw;
     border-radius: 20px;
     background: #2b303a;
-    padding: 5px;
-    margin-top: 67px;
-    margin-left: 146px;
+    padding: 25px;
+    margin-top: 100px;
+    margin-left: 210px;
     border-style: solid;
     border-color: black;
+    margin-bottom: 91px;
+    color: #bac1b8;
+    flex-direction: column;
+}
+.headerCard{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.divTitle{
+    margin: 50px
+}
+
+.divImg{
+    margin-right: 35px;
+}
+.img{
+    border-radius: 15px;
+    width: 218px;
+    height: 187px;
+    margin-left: 0px;
+    padding: 10px;
+}
+.release{
+    margin-left: -20px;
+}
+.divRating{
+    margin-right: 7px;
+}
+.divPlatform{
+    margin-right: 7px;
+    display: flex;
+    flex-direction: column;
+}
+.span{
+    margin-bottom: 5px;
+}
+.divGenre{
+    margin-right: 7px;
+    display: flex;
+    flex-direction: column;
+}
+.divDescription{
+    padding: 17px;
 }

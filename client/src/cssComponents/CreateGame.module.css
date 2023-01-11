@@ -1,1 +1,288 @@
-.container { border:2px solid #ccc; width:300px; height: 100px; overflow-y: scroll}
+
+.container{
+    background-color: #bac1b8;
+    min-height: 100vh;
+    flex-direction: column;
+    display: flex;
+}
+.backBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background: black;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    height: 85px;
+}
+.buttonHeader {
+    padding: 5px 10px;
+    margin-top: 22px;
+    margin-inline: 69px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1.3rem;
+    border-radius: 10px;
+    border-color: #cc3e28;
+    border-style: solid;
+    background-color: #2b303a;
+}
+.buttonHeader:hover{
+    cursor: pointer;
+    background-color: #28535a;
+    border-color: black;
+}
+.formContainer{
+    display: flex;
+    flex-direction: row;
+}
+.typeTable{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 511px;
+    height: 507px;
+    border-style: solid;
+    margin-top: 58px;
+    margin-left: 39px;
+    border-radius: 36px;
+    border-color: black;
+    background-color: black;
+    color: white;
+    border-top-width: 28px;
+    max-height: 509px;
+}
+.inputsTypeTable{
+    max-width: 418px;
+    margin-left: -43px;
+    max-height: 418px;
+}
+
+.selectTable{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 511px;
+    height: 507px;
+    border-style: solid;
+    margin-top: 58px;
+    margin-left: 39px;
+    border-radius: 36px;
+    border-color: black;
+    background-color: black;
+    color: white;
+    border-top-width: 28px;
+    max-height: 509px;
+}
+.divCreateBotton{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 297px;
+    margin-left: 132px;
+}
+.createBotton{
+    padding: 34px;
+    border-style: solid;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    margin-left: -24px;
+    background-color: #2b303a;
+    color: white;
+    border-color: #cc3e28;
+    border-width: medium;
+}
+.createBotton:hover{
+    cursor: pointer;
+    background-color: #28535a;
+    border-color: black;
+}
+.titleContainer{
+    padding: 11px;
+    border-style: ridge;
+    border-radius: 14px;
+    background-color: black;
+    border-color: #cc3e28;
+    margin-top: 6px;
+    padding-bottom: 26px;
+    min-width: 437px;
+    min-height: 53px;
+}
+.titleLabel{
+    padding: 20px;
+}
+.titleInput{
+    border-style: solid;
+    border-radius: 7px;
+    background-color: black;
+    border-color: white;
+    margin-top: 5px;
+    text-align: center;
+    margin-left: 64px;
+    color: white;
+}
+.descriptionContainer{
+    padding: 11px;
+    border-style: ridge;
+    border-radius: 14px;
+    background-color: black;
+    border-color: #cc3e28;
+    margin-top: 6px;
+    padding-bottom: 26px;
+    min-width: 437px;
+    min-height: 53px;
+}
+.descriptionLabel{
+    padding: 20px;
+}
+.descriptionInput{
+    border-style: solid;
+    border-radius: 7px;
+    background-color: black;
+    border-color: white;
+    margin-top: 5px;
+    text-align: center;
+    margin-left: 15px;
+    color: white;
+}
+.releaseContainer{
+    padding: 11px;
+    border-style: ridge;
+    border-radius: 14px;
+    background-color: black;
+    border-color: #cc3e28;
+    margin-top: 6px;
+    padding-bottom: 26px;
+    min-width: 437px;
+    min-height: 53px;
+}
+.releaseLabel{
+    padding: 20px;
+}
+.releaseInput{
+    border-style: solid;
+    border-radius: 7px;
+    background-color: black;
+    border-color: white;
+    margin-top: 5px;
+    text-align: center;
+    margin-left: 44px;
+    color: white;
+}
+
+.imgContainer{
+    padding: 11px;
+    border-style: ridge;
+    border-radius: 14px;
+    background-color: black;
+    border-color: #cc3e28;
+    margin-top: 6px;
+    padding-bottom: 26px;
+    min-width: 437px;
+    min-height: 43px;
+}
+.imgLabel{
+    padding: 20px;
+}
+.imgInput{
+    border-style: solid;
+    border-radius: 7px;
+    background-color: black;
+    border-color: white;
+    margin-top: 5px;
+    text-align: center;
+    margin-left: 24px;
+    max-width: 179px;
+    color: white;
+}
+
+.ratingContainer{
+    padding: 11px;
+    border-style: ridge;
+    border-radius: 14px;
+    background-color: black;
+    border-color: #cc3e28;
+    margin-top: 6px;
+    padding-bottom: 26px;
+    min-width: 437px;
+    max-height: 36px;
+    display: flex;
+    flex-direction: row;
+    min-height: 43px;
+}
+.ratingLabel{
+    padding: 20px;
+    margin-top: -10px;
+}
+.ratingInput{
+    cursor: pointer;
+    margin-left: 49px;
+    width: 191px;
+    margin-top: 7px;
+}
+.ratingNumber{
+    margin-left: 47px;
+    margin-top: 8px;
+    padding: 2px;
+    font-size: 1.3rem;
+}
+.platformANDGenreContainer{
+    padding: 11px;
+    border-style: ridge;
+    border-radius: 14px;
+    background-color: black;
+    border-color: #cc3e28;
+    margin-top: 6px;
+    padding-bottom: 26px;
+    min-width: 324.8px;
+    min-height: 186.6px;
+}
+.platformLabel{
+    padding: 20px;
+}
+.platformBotton{
+    border-radius: 10px;
+    padding: 7px;
+    color: white;
+    background-color: #2b303a;
+    border-color: #cc3e28;
+    margin-left: 32px;
+}
+.platformBotton:hover{
+    cursor: pointer;
+    background-color: #28535a;
+    border-color: black;
+}
+.genreLabel{
+    padding: 20px;
+    margin-left: 29px;
+    margin-right: -20px;
+}
+.genreBoton{
+    border-radius: 10px;
+    padding: 7px;
+    color: white;
+    background-color: #2b303a;
+    border-color: #cc3e28;
+    margin-left: 62px;
+}
+.genreBoton:hover{
+    cursor: pointer;
+    background-color: #28535a;
+    border-color: black;
+}
+.errors{
+    color: #28535a;
+    font-size: 13px;
+    max-height: 0px;
+    max-width: 377px;
+    margin-left: 38px;
+}
+.scrolling {     border: 3px solid #2b303a;
+    border-radius: 5px;
+    margin-top: 39px;
+    margin-left: 11px;
+    width: 300px;
+    height: 100px;
+    overflow-y: scroll;}

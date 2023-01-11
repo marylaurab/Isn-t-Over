@@ -17,8 +17,7 @@ import {
   resetSomeAppliedFilterFlag,
   resetAxiosFlag,
 } from "../Redux/actions/resets";
-import scrolling from "../cssComponents/CreateGame.module.css";
-
+import style from "../cssComponents/createGame.module.css";
 
 export default function CreateGame() {
   const date = new Date();
@@ -196,53 +195,61 @@ export default function CreateGame() {
   };
 
   return (
-    <div>
-      <div>
-        <Link to="/videogames">
-          <button>home</button>
-        </Link>
+    <div className={style.container}>
+      <div className={style.backBar}>
+        <div>
+          <Link to="/videogames">
+            <button className={style.buttonHeader}>home</button>
+          </Link>
+        </div>
+        <div>
+          <Link to="/">
+            <button className={style.buttonHeader}>landing</button>
+          </Link>
+        </div>
       </div>
-      <div>
-        <Link to="/">
-          <button>landing</button>
-        </Link>
-      </div>
-      <div>
-        <label>Title: </label>
-        <input
-          name="title"
-          value={inputs.title}
-          placeholder="Title game..."
-          type="text"
-          onChange={handlerChange}
-        />{" "}
-        {errors.title && <p>{errors.title}</p>}
-      </div>
-      <div>
-        <label>Description: </label>
-        <input
-          name="description"
-          value={inputs.description}
-          placeholder="What's the game about?"
-          type="text"
-          onChange={handlerChange}
-        />
-        {errors.description && <p>{errors.description}</p>}
-      </div>
+      <div className={style.formContainer}>
+        <div className={style.typeTable}>
+         <div className={style.inputsTypeTable}>
+         <div className={style.titleContainer}>
+            <label className={style.titleLabel}>Title: </label>
+            <input
+              name="title"
+              value={inputs.title}
+              placeholder="Title game..."
+              type="text"
+              onChange={handlerChange}
+              className={style.titleInput}
+            />
+            {errors.title && <p className={style.errors}>{errors.title}</p>}
+          </div>
+          <div className={style.descriptionContainer}>
+            <label className={style.descriptionLabel}>Description: </label>
+            <input
+              name="description"
+              value={inputs.description}
+              placeholder="What's the game about?"
+              type="text"
+              onChange={handlerChange}
+              className={style.descriptionInput}
+            />
+            {errors.description && <p className={style.errors}>{errors.description}</p>}
+          </div>
 
-      <div>
-        <label>Release: </label>
-        <input
-          name="release"
-          value={inputs.release}
-          type="text"
-          placeholder="mm/dd/yyyy"
-          onChange={handlerChange}
-        />
-        {errors.release && <p>{errors.release}</p>}
-      </div>
+          <div className={style.releaseContainer}>
+            <label className={style.releaseLabel}>Release: </label>
+            <input
+              name="release"
+              value={inputs.release}
+              type="text"
+              placeholder="mm/dd/yyyy"
+              onChange={handlerChange}
+              className={style.releaseInput}
+            />
+            {errors.release && <p className={style.errors}>{errors.release}</p>}
+          </div>
 
-      {/* <div>
+          {/* <div>
         <input
           name="image"
           value={inputs.image}
@@ -251,105 +258,128 @@ export default function CreateGame() {
           onChange={(e) => receivedImage(e.target.value)} //falta chequear si se crea bien o no en el back, si lo toma como valor valido.
         />
       </div> */}
-      <div>
-        <label>Image link: </label>
-        <input
-          type="link"
-          name="link"
-          id="link"
-          value={inputs.image}
-          onChange={(e) => receivedImage(e.target.value)}
-          placeholder="https://example.jpg"
-          pattern="https://.*"
-          size="30"
-        />
-        {errors.image && <p>{errors.image}</p>}
-      </div>
+          <div className={style.imgContainer}>
+            <label className={style.imgLabel}>Image link: </label>
+            <input
+            className={style.imgInput}
+              type="link"
+              name="image"
+              id="link"
+              value={inputs.image}
+              onChange={(e) => receivedImage(e.target.value)}
+              placeholder="https://example.jpg"
+              pattern="https://.*"
+              size="30"
+              
+            />
+            {errors.image && <p className={style.errors}>{errors.image}</p>}
+          </div>
 
-      <div>
-        <label>Rating: </label>
-        <input
-          name="rating"
-          value={inputs.rating}
-          type="range"
-          min="1"
-          max="5"
-          step="0.01"
-          onChange={handlerChange}
-        />
-        {<p>{inputs.rating}</p>}
-      </div>
-      <div>
-        <label>Platforms: </label>
-        {!displayPlatforms ? (
-          <button
-            onClick={() =>
-              setDisplayPlatforms((old) => setDisplayPlatforms(!old))
-            }
-          >
-            show platforms
-          </button>
-        ) : (
-          <button
-            onClick={() =>
-              setDisplayPlatforms((old) => setDisplayPlatforms(!old))
-            }
-          >
-            hide platforms
-          </button>
-        )}
-        {errors.platforms ? <p>{errors.platforms}</p> : <p>{"\u00A0"}</p>}
-        {displayPlatforms && (
-          <div className={scrolling.container}>
-            {platforms.map((p, i) => (
-              <label key={i}>
-                {p}
-                <input
-                  key={i}
-                  id={p}
-                  value={inputs.platforms}
-                  type="checkbox"
-                  checked={selectedPlatforms?.includes(i) ? true : false}
-                  onChange={() => addPlatform(p, i)}
-                />
-                <br />
-              </label>
-            ))}
+          <div className={style.ratingContainer}>
+            <label className={style.ratingLabel}>Rating: </label>
+            <input
+              name="rating"
+              value={inputs.rating}
+              type="range"
+              min="1"
+              max="5"
+              step="0.01"
+              onChange={handlerChange}
+              className={style.ratingInput}
+            />
+            {<p className={style.ratingNumber}>{inputs.rating}</p>}
           </div>
-        )}
-      </div>
-      <div>
-        <label>Genres: </label>
-        {!displayGenres ? (
-          <button onClick={() => setGenres((old) => setGenres(!old))}>
-            show genres
-          </button>
-        ) : (
-          <button onClick={() => setGenres((old) => setGenres(!old))}>
-            hide genres
-          </button>
-        )}
-        {errors.genres ? <p>{errors.genres}</p> : <p>{"\u00A0"}</p>}
-        {displayGenres && (
-          <div className={scrolling.container}>
-            {genres.map((g, i) => (
-              <label key={i}>
-                {g.name ? g.name : g}
-                <input
-                  key={i}
-                  id={`${g.name ? g.name : g}`}
-                  value={inputs.genres}
-                  type="checkbox"
-                  checked={selectedGenres?.includes(i) ? true : false}
-                  onChange={() => addGenre(g.name ? g.name : g, i)}
-                />
-                <br />
-              </label>
-            ))}
+         </div>
+        </div>
+        <div className={style.selectTable}>
+          <div className={style.platformANDGenreContainer}>
+            <label className={style.platformLabel}>Platforms: </label>
+            {!displayPlatforms ? (
+              <button
+                onClick={() =>
+                  setDisplayPlatforms((old) => setDisplayPlatforms(!old))
+                }
+                className={style.platformBotton}
+              >
+                show platforms
+              </button>
+            ) : (
+              <button
+                onClick={() =>
+                  setDisplayPlatforms((old) => setDisplayPlatforms(!old))
+                }
+                className={style.platformBotton}
+              >
+                hide platforms
+              </button>
+            )}
+            {errors.platforms ? <p className={style.errors}>{errors.platforms}</p> :  null}
+            {displayPlatforms && (
+              <div className={style.scrolling}>
+                {platforms.map((p, i) => (
+                  <label key={i}>
+                    {p}
+                    <input
+                      key={i}
+                      id={p}
+                      value={inputs.platforms}
+                      type="checkbox"
+                      checked={selectedPlatforms?.includes(i) ? true : false}
+                      onChange={() => addPlatform(p, i)}
+                    />
+                    <br />
+                  </label>
+                ))}
+              </div>
+            )}
           </div>
-        )}
+          <div className={style.platformANDGenreContainer}>
+            <label className={style.genreLabel}>Genres: </label>
+            {!displayGenres ? (
+              <button
+                onClick={() => setGenres((old) => setGenres(!old))}
+                className={style.genreBoton}
+              >
+                show genres
+              </button>
+            ) : (
+              <button
+                onClick={() => setGenres((old) => setGenres(!old))}
+                className={style.genreBoton}
+              >
+                hide genres
+              </button>
+            )}
+            {errors.genres ? <p className={style.errors}>{errors.genres}</p> : null}
+            {displayGenres && (
+              <div className={style.scrolling}>
+                {genres.map((g, i) => (
+                  <label key={i}>
+                    {g.name ? g.name : g}
+                    <input
+                      key={i}
+                      id={`${g.name ? g.name : g}`}
+                      value={inputs.genres}
+                      type="checkbox"
+                      checked={selectedGenres?.includes(i) ? true : false}
+                      onChange={() => addGenre(g.name ? g.name : g, i)}
+                    />
+                    <br />
+                  </label>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+        <div className={style.divCreateBotton}>
+          <button
+            onClick={(e) => handlerSubmit(e)}
+            className={style.createBotton}
+          >
+            create videogame
+          </button>
+        </div>
       </div>
-      <button onClick={(e) => handlerSubmit(e)}>create videogame</button>
     </div>
   );
 }
