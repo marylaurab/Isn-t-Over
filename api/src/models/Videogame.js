@@ -35,7 +35,7 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
 
         defaultValue:
-          "https://i.pinimg.com/736x/58/fe/9b/58fe9bb8e043ebf9a7e5e129c43ac97c.jpg",
+          "https://downloadwap.com/thumbs2/wallpapers/p2ls/2019/abstract/45/c64ba65313143652.jpg",
       },
       platforms: {
         type: DataTypes.ARRAY(DataTypes.STRING),
