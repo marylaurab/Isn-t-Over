@@ -146,5 +146,5 @@ export default function Home() {
     )
   ) : (
     <NameNotFound resetHome={resetHome} />
-  ); //Al any game with that name se le pasaba onClick={agree}
+  ); 
 }

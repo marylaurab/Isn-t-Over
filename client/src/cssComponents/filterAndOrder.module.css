@@ -30,7 +30,8 @@
   padding: 4px 0px;
 }
 .orderSelect:hover{
-  cursor:pointer
+  cursor:pointer;
+  background: #28535a;
 }
 .orderSelect {
   border-style: solid;
@@ -58,7 +59,8 @@
   padding: 4px 0px;
 }
 .genreSelect:hover{
-  cursor:pointer
+  cursor:pointer;
+  background: #28535a;
 }
 .genreSelect {
   border-style: solid;
@@ -87,7 +89,8 @@
   padding: 4px 0px;
 }
 .creationSelect:hover{
-  cursor:pointer
+  cursor:pointer;
+  background: #28535a;
 }
 .creationSelect {
   border-style: solid;

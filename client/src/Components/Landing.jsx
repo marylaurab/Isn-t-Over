@@ -1,23 +1,28 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import style from "../cssComponents/landing.module.css";
 const slides = ["game1.png", "game2.png", "game3.png"];
 
 export default function Landing() {
   const [currentIndex, setCurrenteIndex] = useState(0);
-  const [flag, setFlag] = useState(true);
+  const [flag, setFlag] = useState(false);
+  const idSetTimeOut = useRef(null);
 
- 
-  // setTimeout(() => {
-  //   if (flag) {
-  //     const isLastSlide = currentIndex === slides.length - 1;
-  //     const newIndex = isLastSlide ? 0 : currentIndex + 1;
-  //     setCurrenteIndex(newIndex);
-  //   } else {
-  //     return;
-  //   }
-  // }, 5000);
+  function timer() {
+    idSetTimeOut.current = setTimeout(() => {
+      const isLastSlide = currentIndex === slides.length - 1;
+      const newIndex = isLastSlide ? 0 : currentIndex + 1;
+      setCurrenteIndex(newIndex);
+    }, 5000);
+  }
 
+  useEffect(() => {
+    clearTimeout(idSetTimeOut.current);
+    timer();
+    return () => {
+      clearTimeout(idSetTimeOut.current);
+    };
+  }, [currentIndex]);
 
   const slide = {
     height: "100%",
@@ -28,19 +33,19 @@ export default function Landing() {
   };
 
   const goToNext = () => {
-    setFlag(false);
+  
+    console.log("click a Next");
     const isLastSlide = currentIndex === slides.length - 1;
     const newIndex = isLastSlide ? 0 : currentIndex + 1;
     setCurrenteIndex(newIndex);
-    
   };
 
   const goToPrevious = () => {
-    setFlag(false);
+
+
     const isFirstSlide = currentIndex === 0;
     const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1;
     setCurrenteIndex(newIndex);
-   
   };
 
   return (
@@ -49,15 +54,19 @@ export default function Landing() {
         <img src="logoPI1.png" alt="Logo img" className={style.logo} />
       </div>
       <div className={style.container}>
-        <div className={style.slider} onMouseLeave={()=>setFlag(true)}>
-          <div className={style.rightArrow} onClick={goToNext}>
+        <div
+          className={style.slider}
+        >
+          <div className={style.rightArrow} onClick={() => goToNext()}>
             {">"}
           </div>
-          <div className={style.leftArrow} onClick={goToPrevious}>
+          <div className={style.leftArrow} onClick={() => goToPrevious()}>
             {"<"}
           </div>
           <img style={slide} src={`${slides[currentIndex]}`} />
         </div>
+      </div>
+      <div>
         <div className={style.divButtons}>
           <Link to="/videogames">
             <button className={style.buttons}>view all games</button>
@@ -72,35 +81,3 @@ export default function Landing() {
   );
 }
 
-
-// PARA SOLUCIONAR EL SETTIMEOUT:
-// import React, { useEffect, useRef, useState } from "react"
-
-// const Timer = () => {
-//   const [message, setMessage] = useState("Timer Running")
-//   // reference used so that it does not change across renders
-//   let timeoutID = useRef(null)
-//   useEffect(() => {
-//     timeoutID.current = setTimeout(() => {
-//       setMessage("Times Up!")
-//     }, 5000)
-
-//     return () => {
-//       clearTimeout(timeoutID.current)
-//       console.log("timeout cleared")
-//     }
-//   }, [])
-//   return <div>{message}</div>
-// }
-
-// const Timeout = () => {
-//   const [showTimer, setShowTimer] = useState(false)
-//   return (
-//     <div>
-//       <button onClick={() => setShowTimer(!showTimer)}>Toggle Timer</button>
-//       <div>{showTimer && <Timer />}</div>
-//     </div>
-//   )
-// }
-
-// export default Timeout

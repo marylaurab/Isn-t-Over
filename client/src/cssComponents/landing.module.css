@@ -1,7 +1,11 @@
 .container {
-  width: 500px;
-  height: 280px;
-  margin: 0 auto;
+  width: 1150px;
+  height: 547px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: -39px;
+  margin-left: 190px;
 }
 .slider {
   display: flex;
@@ -10,7 +14,6 @@
   height: 100%;
   width: 100%;
   position: relative;
-  /* transform: translate(0, -10%); */ 
 }
 
 
@@ -38,16 +41,23 @@
   height: 100%;
   min-height: 100vh;
   background-color: #bac1b8ff;
-  /* display: grid; */
   display: flex;
   flex-direction: column;
 }
 
 .divButtons {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin-top: 50px;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: -583px;
+    margin-left: 1135px;
+    border-style: solid;
+    border-width: medium;
+    border-radius: 15px;
+    padding-bottom: 7px;
+    background: black;
+    width: 391px;
+    height: 30px;
 }
 
 .buttons {
@@ -71,18 +81,19 @@
 }
 
 .logo {
-  margin-top: 10px;
+  margin-top: -28px;
   margin-inline: auto;
   display: flex;
   justify-items: center;
-  height: 170px;
-  width: 170px;
+  height: 103px;
+  width: 100px;
+  padding: 18px;
 }
 .header {
   margin-top: 0;
+  max-height: 95px;
   background-color: #000000;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
-
 }
 

@@ -174,7 +174,7 @@ export default function CreateGame() {
         cleaningHome();
         alert("The videogame was created successfully");
 
-        history.push("/videogames"); //esto podria ir en el boton de click ir al home luego de crearlo correctamente
+        history.push("/videogames");
       } else {
         alert("Sorry! an error occurred. Try again.");
         setInputs(initialValues);
@@ -219,6 +219,7 @@ export default function CreateGame() {
               placeholder="Title game..."
               type="text"
               onChange={handlerChange}
+              autocomplete="off"
               className={style.titleInput}
             />
             {errors.title && <p className={style.errors}>{errors.title}</p>}
@@ -230,6 +231,7 @@ export default function CreateGame() {
               value={inputs.description}
               placeholder="What's the game about?"
               type="text"
+              autocomplete="off"
               onChange={handlerChange}
               className={style.descriptionInput}
             />
@@ -242,6 +244,7 @@ export default function CreateGame() {
               name="release"
               value={inputs.release}
               type="text"
+              autocomplete="off"
               placeholder="mm/dd/yyyy"
               onChange={handlerChange}
               className={style.releaseInput}
@@ -249,15 +252,6 @@ export default function CreateGame() {
             {errors.release && <p className={style.errors}>{errors.release}</p>}
           </div>
 
-          {/* <div>
-        <input
-          name="image"
-          value={inputs.image}
-          type="file"
-          accept="image/png, image/jpeg"
-          onChange={(e) => receivedImage(e.target.value)} //falta chequear si se crea bien o no en el back, si lo toma como valor valido.
-        />
-      </div> */}
           <div className={style.imgContainer}>
             <label className={style.imgLabel}>Image link: </label>
             <input
@@ -265,8 +259,9 @@ export default function CreateGame() {
               type="link"
               name="image"
               id="link"
+              autocomplete="off"
               value={inputs.image}
-              onChange={(e) => receivedImage(e.target.value)}
+              onChange={(e) => (receivedImage(e.target.value), handlerChange())}
               placeholder="https://example.jpg"
               pattern="https://.*"
               size="30"
