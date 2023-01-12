@@ -23,7 +23,6 @@
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
     height: 85px;
-    box-shadow: 1px 10px 25px rgb(0 0 0 / 50%);
 }
 .backButton {
     padding: 5px 10px;
@@ -59,7 +58,6 @@
     margin-bottom: 91px;
     color: #bac1b8;
     flex-direction: column;
-    box-shadow: 1px 10px 25px rgb(0 0 0 / 50%);
 }
 .headerCard{
     display: flex;

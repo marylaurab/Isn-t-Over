@@ -219,7 +219,7 @@ export default function CreateGame() {
               placeholder="Title game..."
               type="text"
               onChange={handlerChange}
-              autocomplete="off"
+              autoComplete="off"
               className={style.titleInput}
             />
             {errors.title && <p className={style.errors}>{errors.title}</p>}
@@ -231,7 +231,7 @@ export default function CreateGame() {
               value={inputs.description}
               placeholder="What's the game about?"
               type="text"
-              autocomplete="off"
+              autoComplete="off"
               onChange={handlerChange}
               className={style.descriptionInput}
             />
@@ -244,7 +244,7 @@ export default function CreateGame() {
               name="release"
               value={inputs.release}
               type="text"
-              autocomplete="off"
+              autoComplete="off"
               placeholder="mm/dd/yyyy"
               onChange={handlerChange}
               className={style.releaseInput}
@@ -259,9 +259,9 @@ export default function CreateGame() {
               type="link"
               name="image"
               id="link"
-              autocomplete="off"
+              autoComplete="off"
               value={inputs.image}
-              onChange={(e) => (receivedImage(e.target.value), handlerChange())}
+              onChange={(e) => (receivedImage(e.target.value),handlerChange(e))}
               placeholder="https://example.jpg"
               pattern="https://.*"
               size="30"
