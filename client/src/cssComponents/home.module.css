@@ -10,6 +10,21 @@
   min-width: 150px;
   border-radius: 100%;
 }
+.mainContainerLogo{
+  margin-top: -22px;
+  margin-left: -305px;
+  margin-right: -60px;
+}
+.logo{
+  margin-top: -26px;
+  margin-inline: auto;
+  display: flex;
+  margin-left: 218px;
+  justify-items: center;
+  height: 103px;
+  width: 100px;
+  padding: 18px;
+}
 
 .container {
   min-height: 100vh;
@@ -49,23 +64,25 @@
   flex-direction: row;
   justify-content: space-around;
   margin-top: 0px;
+  max-height: 53px;
   padding-top: 15px;
   padding-bottom: 20px;
   background-color: black;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
-  box-shadow: 1px 10px 25px rgba(0, 0, 0, 0.5);
+  box-shadow: 1px 10px 25px rgb(0 0 0 / 50%);
 }
+
 
 .filterAndCards {
   display: flex;
   flex-direction: row;
 }
 
-.buttons {
+.backButton {
   padding: 5px 10px;
   margin-top: 5px;
-  margin-inline: 10px;
+  margin-left: -87px;
   text-align: center;
   text-decoration: none;
   color: white;
@@ -74,10 +91,51 @@
   border-radius: 10px;
   border-color: #cc3e28;
   border-style: solid;
-  background-color: #2b303a
+  background-color: #2b303a;
 }
-.buttons:hover {
+.backButton:hover {
   background-color: #28535a;
   border-color: black;
   color: white;
 }
+
+.buttonPost {
+  padding: 5px 10px;
+  margin-top: 5px;
+  margin-right: -245px;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.3rem;
+  border-radius: 10px;
+  border-color: #cc3e28;
+  border-style: solid;
+  background-color: #2b303a;
+}
+.buttonPost:hover {
+  background-color: #28535a;
+  border-color: black;
+  color: white;
+}
+.mainSearchBar{
+  display: flex;
+    justify-content: center;
+    padding: 8px;
+}
+.containerSearchBar{
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+  padding-top: -52px;
+  max-width: 300px;
+  max-height: 299px;
+  margin-left: -5px;
+  margin-top: 23px;
+  margin-bottom: -67px;
+  border-style: solid;
+  border-radius: 19px;
+  background-color: black;
+  box-shadow: 1px 10px 25px rgb(0 0 0 / 50%);
+}
+

@@ -85,9 +85,10 @@
 }
 
 .logo {
-  margin-top: -28px;
+  margin-top: -26px;
   margin-inline: auto;
   display: flex;
+  margin-left: 62px;
   justify-items: center;
   height: 103px;
   width: 100px;

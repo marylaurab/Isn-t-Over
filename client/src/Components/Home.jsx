@@ -100,14 +100,22 @@ export default function Home() {
       <div className={style.container}>
         <div className={style.navBar}>
           <Link to="/">
-            <button onClick={backButton} className={style.buttons}>
+            <button onClick={backButton} className={style.backButton}>
               back
             </button>
           </Link>
-          <SearchBar />
+          <div className={style.mainContainerLogo}>
+            <img src="logoPI1.png" className={style.logo}/>
+          </div>
+          {/* <SearchBar /> */}
           <Link to="/creategame">
-            <button className={style.buttons}>post game</button>
+            <button className={style.buttonPost}>post game</button>
           </Link>
+        </div>
+        <div className={style.mainSearchBar}>
+          <div className={style.containerSearchBar}>
+          <SearchBar />
+          </div>
         </div>
         <div className={style.filterAndCards}>
           <div >
