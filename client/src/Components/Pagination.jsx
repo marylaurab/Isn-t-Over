@@ -24,15 +24,18 @@ export default function Pagination({ currentPage, totalPagesToRender }) {
 
   useEffect(() => {
     dispatch(setSubPages());
-  }, [indexes]);
+   }, //[indexes]
+   [currentPage]);
 
   const previosPage = () => {
     if (currentPage === 1) return;
     if (currentPage === renderSubPages[0]) {
+      
       dispatch(prevSubPages());
       dispatch(setPrevPivot());
       return;
     }
+   
     dispatch(prevPage());
   };
   const nextPage = () => {
@@ -49,6 +52,7 @@ export default function Pagination({ currentPage, totalPagesToRender }) {
   };
   const previousSubPages = () => {
     if (currentSubPage === 1) return;
+   
     dispatch(prevSubPages());
     dispatch(setNextPivot());
   };
@@ -61,65 +65,69 @@ export default function Pagination({ currentPage, totalPagesToRender }) {
   return (
     <div className={style.container}>
       <div className={style.mainDiv}>
-      <div className={style.divButtons}>
-        <button
-          onClick={previousSubPages}
-          className={
-            currentSubPage === 1 ? style.disabledButtons : style.buttons
-          }
-        >
-          {"<<"}
-        </button>
-        <button
-          onClick={previosPage}
-          className={currentPage === 1 ? style.disabledButtons : style.buttons}
-        >
-          Prev
-        </button>
-      </div>
-      {currentPage > 3 ? <h5 className={style.dotsPrev}>...</h5> : undefined}
-      <div>
-        <ul className={style.divSubPages}>
-          {renderSubPages.map((p) => (
-            <li key={p}>
-              <button
-                onClick={() => onSpecificPage(p)}
-                key={p}
-                className={
-                  p === currentPage ? style.currentPage : style.subPages
-                }
-              >
-                {p}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-      {currentPage !== totalPagesToRender ? (
-        <h5 className={style.dotsNext}>...</h5>
-      ) : undefined}
-      <div className={style.divButtons}>
-        <button
-          onClick={nextPage}
-          className={
-            currentPage === pages.length
-              ? style.disabledButtons
-              : style.buttons
-          }
-        >
-          Next
-        </button>
-        <button
-          onClick={nextSubPages}
-          className={
-            currentSubPage === conditional
-              ? style.disabledButtons
-              : style.buttons
-          }
-        >
-          {">>"}
-        </button>
-      </div>
+        <div className={style.divButtons}>
+          <button
+            
+            onClick={previousSubPages} 
+            className={
+              currentSubPage === 1 ? style.disabledButtons : style.buttons
+            }
+          >
+            {"<<"}
+          </button>
+          <button
+            
+            onClick={previosPage}
+            className={
+              currentPage === 1 ? style.disabledButtons : style.buttons
+            }
+          >
+            Prev
+          </button>
+        </div>
+        {currentPage > 3 ? <h5 className={style.dotsPrev}>...</h5> : undefined}
+        <div>
+          <ul className={style.divSubPages}>
+            {renderSubPages.map((p) => (
+              <li key={p}>
+                <button
+                  onClick={() => onSpecificPage(p)}
+                  key={p}
+                  className={
+                    p === currentPage ? style.currentPage : style.subPages
+                  }
+                >
+                  {p}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+        {currentPage !== totalPagesToRender ? (
+          <h5 className={style.dotsNext}>...</h5>
+        ) : undefined}
+        <div className={style.divButtons}>
+          <button
+            onClick={nextPage}
+            className={
+              currentPage === pages.length
+                ? style.disabledButtons
+                : style.buttons
+            }
+          >
+            Next
+          </button>
+          <button
+            onClick={nextSubPages}
+            className={
+              currentSubPage === conditional
+                ? style.disabledButtons
+                : style.buttons
+            }
+          >
+            {">>"}
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -23,13 +23,13 @@ export default function SearchBar() {
   };
   const handlerSubmit = (e) => {
     e.preventDefault();
-    if (input) {
+    if (inputForSearch) {
       dispatch(resetSomeAppliedFilterFlag());
       dispatch(resetInputOrder());
       dispatch(resetInputFilterByGenre());
       dispatch(cleanGamesToRender());
       dispatch(resetPaginate());
-      dispatch(getAllByName(input));
+      dispatch(getAllByName(inputForSearch));
       return;
     } else {
       alert("Please enter a name game");

@@ -5,12 +5,14 @@ import {
   setInputFilterByCreation,
   setFlagSomeFilterApplied,
 } from "../Redux/actions/sets";
+import{resetPaginate} from'../Redux/actions/resets'
 import { filterByGenres, filterByCreation } from "../Redux/actions/filters";
 import { useDispatch, useSelector } from "react-redux";
 import style from "../cssComponents/filterAndOrder.module.css";
 
 export default function FilterAndOrder() {
   const dispatch = useDispatch();
+
   const inputForOrder = useSelector((state) => state.settings.inputForOrder);
   const inputForFilterByGenre = useSelector(
     (state) => state.settings.inputForFilterByGenre
@@ -25,12 +27,14 @@ export default function FilterAndOrder() {
     dispatch(order(e.target.value));
   };
   const toFilterByGenre = (e) => {
+    dispatch(resetPaginate());
     dispatch(filterByGenres(e.target.value));
     dispatch(setInputFilterByGenre(e.target.value));
     dispatch(setFlagSomeFilterApplied());
   };
 
   const toFilterByCreation = (e) => {
+    dispatch(resetPaginate());
     dispatch(filterByCreation(e.target.value));
     dispatch(setInputFilterByCreation(e.target.value));
     dispatch(setFlagSomeFilterApplied());

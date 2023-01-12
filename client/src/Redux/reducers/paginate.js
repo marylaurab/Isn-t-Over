@@ -50,14 +50,21 @@ export const paginate = (localState = initialState, action) => {
       };
     }
     case SET_SUBPAGES: {
-      return {
-        ...localState,
-        renderSubPages: [
-          localState.pages[localState.indexes.j],
-          localState.pages[localState.indexes.k],
-          localState.pages[localState.indexes.l],
-        ].filter((e) => e !== undefined),
-      };
+      if (localState.pages.length === 1) {
+        return {
+          ...localState,
+          renderSubPages: [localState.pages[localState.indexes.j]],
+        };
+      } else {
+        return {
+          ...localState,
+          renderSubPages: [
+            localState.pages[localState.indexes.j],
+            localState.pages[localState.indexes.k],
+            localState.pages[localState.indexes.l],
+          ].filter((e) => e !== undefined),
+        };
+      }
     }
     case PREV_PAGE: {
       return {
@@ -116,6 +123,7 @@ export const paginate = (localState = initialState, action) => {
         ...localState,
         currentPage: 1,
         currentSubPage: 1,
+        indexes: { j: 0, k: 1, l: 2 }
       };
     }
     default:

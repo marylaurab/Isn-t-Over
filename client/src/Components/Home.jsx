@@ -89,7 +89,7 @@ export default function Home() {
     dispatch(setByName());
   };
 
-  const backButton = () => {
+  const moveButton = () => {
     dispatch(cleanGamesToRender());
     dispatch(resetGamesByName());
     resetHome();
@@ -100,16 +100,15 @@ export default function Home() {
       <div className={style.container}>
         <div className={style.navBar}>
           <Link to="/">
-            <button onClick={backButton} className={style.backButton}>
-              back
+            <button onClick={moveButton} className={style.backButton}>
+              landing
             </button>
           </Link>
           <div className={style.mainContainerLogo}>
             <img src="logoPI1.png" className={style.logo}/>
           </div>
-          {/* <SearchBar /> */}
           <Link to="/creategame">
-            <button className={style.buttonPost}>post game</button>
+            <button  onClick={moveButton} className={style.buttonPost}>post game</button>
           </Link>
         </div>
         <div className={style.mainSearchBar}>

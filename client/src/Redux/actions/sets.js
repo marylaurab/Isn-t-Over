@@ -8,7 +8,6 @@ import {
 } from "./-index";
 
 export const setInputSearchBar = (inputValue) => {
-  //cambie nombre
   return {
     type: SET_INPUT_SEARCHBAR,
     payload: inputValue,
@@ -16,7 +15,6 @@ export const setInputSearchBar = (inputValue) => {
 };
 
 export const setInputFilterByGenre = (inputValue) => {
-  //cambiarrrrr nombre aca y a lo largo
   return {
     type: SET_INPUT_FILTER_BY_GENRE,
     payload: inputValue,
@@ -30,7 +28,6 @@ export const setInputFilterByCreation=(inputValue)=>{
 }
 
 export const setInputOrder = (inputValue) => {
-  //cambie nombre
   return {
     type: SET_INPUT_ORDER,
     payload: inputValue,

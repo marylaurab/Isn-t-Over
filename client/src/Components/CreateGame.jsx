@@ -108,6 +108,16 @@ export default function CreateGame() {
     return foundErrors;
   };
 
+  useEffect(
+    () =>
+      Object.keys(errors).includes("image")
+        ? inputs.image?.length === 0
+          ? setInputs({ ...inputs, image: undefined })
+          : null
+        : null,
+    [inputs.image]
+  );
+
   const handlerChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
@@ -210,81 +220,86 @@ export default function CreateGame() {
       </div>
       <div className={style.formContainer}>
         <div className={style.typeTable}>
-         <div className={style.inputsTypeTable}>
-         <div className={style.titleContainer}>
-            <label className={style.titleLabel}>Title: </label>
-            <input
-              name="title"
-              value={inputs.title}
-              placeholder="Title game..."
-              type="text"
-              onChange={handlerChange}
-              autoComplete="off"
-              className={style.titleInput}
-            />
-            {errors.title && <p className={style.errors}>{errors.title}</p>}
-          </div>
-          <div className={style.descriptionContainer}>
-            <label className={style.descriptionLabel}>Description: </label>
-            <input
-              name="description"
-              value={inputs.description}
-              placeholder="What's the game about?"
-              type="text"
-              autoComplete="off"
-              onChange={handlerChange}
-              className={style.descriptionInput}
-            />
-            {errors.description && <p className={style.errors}>{errors.description}</p>}
-          </div>
+          <div className={style.inputsTypeTable}>
+            <div className={style.titleContainer}>
+              <label className={style.titleLabel}>Title: </label>
+              <input
+                name="title"
+                value={inputs.title}
+                placeholder="Title game..."
+                type="text"
+                onChange={handlerChange}
+                autoComplete="off"
+                className={style.titleInput}
+              />
+              {errors.title && <p className={style.errors}>{errors.title}</p>}
+            </div>
+            <div className={style.descriptionContainer}>
+              <label className={style.descriptionLabel}>Description: </label>
+              <input
+                name="description"
+                value={inputs.description}
+                placeholder="What's the game about?"
+                type="text"
+                autoComplete="off"
+                onChange={handlerChange}
+                className={style.descriptionInput}
+              />
+              {errors.description && (
+                <p className={style.errors}>{errors.description}</p>
+              )}
+            </div>
 
-          <div className={style.releaseContainer}>
-            <label className={style.releaseLabel}>Release: </label>
-            <input
-              name="release"
-              value={inputs.release}
-              type="text"
-              autoComplete="off"
-              placeholder="mm/dd/yyyy"
-              onChange={handlerChange}
-              className={style.releaseInput}
-            />
-            {errors.release && <p className={style.errors}>{errors.release}</p>}
-          </div>
+            <div className={style.releaseContainer}>
+              <label className={style.releaseLabel}>Release: </label>
+              <input
+                name="release"
+                value={inputs.release}
+                type="text"
+                autoComplete="off"
+                placeholder="mm/dd/yyyy"
+                onChange={handlerChange}
+                className={style.releaseInput}
+              />
+              {errors.release && (
+                <p className={style.errors}>{errors.release}</p>
+              )}
+            </div>
 
-          <div className={style.imgContainer}>
-            <label className={style.imgLabel}>Image link: </label>
-            <input
-            className={style.imgInput}
-              type="link"
-              name="image"
-              id="link"
-              autoComplete="off"
-              value={inputs.image}
-              onChange={(e) => (receivedImage(e.target.value),handlerChange(e))}
-              placeholder="https://example.jpg"
-              pattern="https://.*"
-              size="30"
-              
-            />
-            {errors.image && <p className={style.errors}>{errors.image}</p>}
-          </div>
+            <div className={style.imgContainer}>
+              <label className={style.imgLabel}>Image link: </label>
+              <input
+                className={style.imgInput}
+                type="link"
+                name="image"
+                id="link"
+                autoComplete="off"
+                value={inputs.image}
+                onChange={(e) => (
+                  receivedImage(e.target.value), handlerChange(e)
+                )}
+                placeholder="https://example.jpg"
+                pattern="https://.*"
+                // size="30"
+              />
+              {errors.image && <p className={style.errors}>{errors.image}</p>}
+            </div>
 
-          <div className={style.ratingContainer}>
-            <label className={style.ratingLabel}>Rating: </label>
-            <input
-              name="rating"
-              value={inputs.rating}
-              type="range"
-              min="1"
-              max="5"
-              step="0.01"
-              onChange={handlerChange}
-              className={style.ratingInput}
-            />
-            {<p className={style.ratingNumber}>{inputs.rating}</p>}
+            <div className={style.ratingContainer}>
+              <label className={style.ratingLabel}>Rating: </label>
+              <input
+                name="rating"
+                value={inputs.rating}
+                type="range"
+                min="1"
+                max="5"
+                step="0.01"
+                onChange={handlerChange}
+                className={style.ratingInput}
+              />
+              {<p className={style.ratingNumber}>{inputs.rating}</p>}
+            </div>
           </div>
-         </div>
         </div>
         <div className={style.selectTable}>
           <div className={style.platformANDGenreContainer}>
@@ -308,7 +323,9 @@ export default function CreateGame() {
                 hide platforms
               </button>
             )}
-            {errors.platforms ? <p className={style.errors}>{errors.platforms}</p> :  null}
+            {errors.platforms ? (
+              <p className={style.errors}>{errors.platforms}</p>
+            ) : null}
             {displayPlatforms && (
               <div className={style.scrolling}>
                 {platforms.map((p, i) => (
@@ -345,7 +362,9 @@ export default function CreateGame() {
                 hide genres
               </button>
             )}
-            {errors.genres ? <p className={style.errors}>{errors.genres}</p> : null}
+            {errors.genres ? (
+              <p className={style.errors}>{errors.genres}</p>
+            ) : null}
             {displayGenres && (
               <div className={style.scrolling}>
                 {genres.map((g, i) => (
