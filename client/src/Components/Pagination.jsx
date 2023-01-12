@@ -60,6 +60,7 @@ export default function Pagination({ currentPage, totalPagesToRender }) {
 
   return (
     <div className={style.container}>
+      <div className={style.mainDiv}>
       <div className={style.divButtons}>
         <button
           onClick={previousSubPages}
@@ -118,6 +119,7 @@ export default function Pagination({ currentPage, totalPagesToRender }) {
         >
           {">>"}
         </button>
+      </div>
       </div>
     </div>
   );

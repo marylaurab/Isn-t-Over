@@ -5,7 +5,6 @@ const slides = ["game1.png", "game2.png", "game3.png"];
 
 export default function Landing() {
   const [currentIndex, setCurrenteIndex] = useState(0);
-  const [flag, setFlag] = useState(false);
   const idSetTimeOut = useRef(null);
 
   function timer() {
@@ -63,7 +62,8 @@ export default function Landing() {
           <div className={style.leftArrow} onClick={() => goToPrevious()}>
             {"<"}
           </div>
-          <img style={slide} src={`${slides[currentIndex]}`} />
+          <img className={style.img} style={slide} src={`${slides[currentIndex]}`} />
+    
         </div>
       </div>
       <div>

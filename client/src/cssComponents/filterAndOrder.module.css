@@ -9,6 +9,7 @@
   border-style: solid;
   border-radius: 19px;
   background-color: black;
+  box-shadow: 1px 10px 25px rgba(0, 0, 0, 0.5);
 }
 .orderContainer {
   padding: 7px;

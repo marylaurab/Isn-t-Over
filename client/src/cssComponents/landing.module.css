@@ -14,8 +14,13 @@
   height: 100%;
   width: 100%;
   position: relative;
+  
 }
 
+
+.img {
+  box-shadow: 1px 10px 25px rgba(0, 0, 0, 0.5);
+}
 
 .leftArrow {
   position: absolute;
@@ -47,17 +52,17 @@
 
 .divButtons {
   display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-top: -583px;
-    margin-left: 1135px;
-    border-style: solid;
-    border-width: medium;
-    border-radius: 15px;
-    padding-bottom: 7px;
-    background: black;
-    width: 391px;
-    height: 30px;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: -583px;
+  margin-left: 1135px;
+  border-style: solid;
+  border-width: medium;
+  border-radius: 15px;
+  padding-bottom: 7px;
+  background: black;
+  width: 391px;
+  height: 30px;
 }
 
 .buttons {
@@ -72,10 +77,9 @@
   border-radius: 10px;
   border-color: #cc3e28;
   background-color: #2b303a;
-
 }
 .buttons:hover {
-  background-color: #28535A;
+  background-color: #28535a;
   border-color: #2b303a;
   color: white;
 }
@@ -95,5 +99,5 @@
   background-color: #000000;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
+  box-shadow: 1px 10px 25px rgba(0, 0, 0, 0.5);
 }
-

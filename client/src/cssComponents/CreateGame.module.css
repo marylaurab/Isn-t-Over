@@ -13,6 +13,7 @@
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
     height: 85px;
+    box-shadow: 1px 10px 25px rgba(0, 0, 0, 0.5);
 }
 .buttonHeader {
     padding: 5px 10px;
@@ -52,6 +53,7 @@
     color: white;
     border-top-width: 28px;
     max-height: 509px;
+    box-shadow: 1px 10px 25px rgba(0, 0, 0, 0.5);
 }
 .inputsTypeTable{
     max-width: 418px;
@@ -74,6 +76,7 @@
     color: white;
     border-top-width: 28px;
     max-height: 509px;
+    box-shadow: 1px 10px 25px rgba(0, 0, 0, 0.5);
 }
 .divCreateBotton{
     display: flex;
@@ -92,6 +95,7 @@
     color: white;
     border-color: #cc3e28;
     border-width: medium;
+    box-shadow: 1px 10px 25px rgba(0, 0, 0, 0.5);
 }
 .createBotton:hover{
     cursor: pointer;
