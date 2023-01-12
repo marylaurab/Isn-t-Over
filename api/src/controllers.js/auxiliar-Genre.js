@@ -1,6 +1,8 @@
 const fetch = require("node-fetch");
 const { Genre } = require("../db.js");
 const {API_KEY} =process.env
+
+
 const getGenresDb = async () => {
   try {
     let genresDb = await Genre.findAll({

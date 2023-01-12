@@ -15,10 +15,10 @@ import style from '../cssComponents/searchBar.module.css'
 export default function SearchBar() {
   const dispatch = useDispatch();
   const inputForSearch = useSelector((state) => state.settings.inputForSearch);
-  const [input, setInput] = useState("");
+ 
 
   const handlerChange = (e) => {
-    setInput(e.target.value);
+  
     dispatch(setInputSearchBar(e.target.value));
   };
   const handlerSubmit = (e) => {

@@ -110,21 +110,6 @@ const createVideogame = async (
       const genreFromDB = await Genre.findOne({ where: { name } });
       await newGame.addGenre(genreFromDB);
     }
-    // let genre = await Genre.findAll({
-
-    //   where: {
-    //     name: {
-    //       [Op.in]: genres,
-    //     },
-    //   },
-    // });
-    // console.log("GENEROS:", genre)
-    // for(let g of genre) {
-    //   await newGame.addGenre(g);
-    // }
-    // // await newGame.addGenre(genre);
-    // return newGame;
-
     const gameTobeReturned = await Videogame.findOne({
       where: { id: newGame.id },
       include: [

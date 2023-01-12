@@ -5,7 +5,7 @@ import {
   setInputFilterByCreation,
   setFlagSomeFilterApplied,
 } from "../Redux/actions/sets";
-import{resetPaginate} from'../Redux/actions/resets'
+import { resetPaginate } from "../Redux/actions/resets";
 import { filterByGenres, filterByCreation } from "../Redux/actions/filters";
 import { useDispatch, useSelector } from "react-redux";
 import style from "../cssComponents/filterAndOrder.module.css";
@@ -22,6 +22,8 @@ export default function FilterAndOrder() {
   );
   const genres = useSelector((state) => state.mainData.genres);
   const gamesByName = useSelector((state) => state.mainData.gamesByName);
+
+  
   const toOrder = (e) => {
     dispatch(setInputOrder(e.target.value));
     dispatch(order(e.target.value));

@@ -11,7 +11,6 @@ import {
   getAllVideogames,
   getAllGenres,
   getDetailGame,
-  getPlatforms,
 } from "../Redux/actions/data";
 import { setAuxPaginate, setPages, setSubPages } from "../Redux/actions/pages";
 import {
@@ -28,7 +27,6 @@ import {
 } from "../Redux/actions/resets";
 import { setByName } from "../Redux/actions/sets";
 import style from "../cssComponents/home.module.css";
-
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -51,7 +49,6 @@ export default function Home() {
     if (gamesToRender.length === 0) {
       dispatch(getAllVideogames());
       dispatch(getAllGenres());
-      // dispatch(getPlatforms());
     }
   }, []);
 
@@ -105,24 +102,30 @@ export default function Home() {
             </button>
           </Link>
           <div className={style.mainContainerLogo}>
-            <img src="logoPI1.png" className={style.logo}/>
+            <img src="logoPI1.png" className={style.logo} />
           </div>
           <Link to="/creategame">
-            <button  onClick={moveButton} className={style.buttonPost}>post game</button>
+            <button onClick={moveButton} className={style.buttonPost}>
+              post game
+            </button>
           </Link>
         </div>
         <div className={style.mainSearchBar}>
           <div className={style.containerSearchBar}>
-          <SearchBar />
+            <SearchBar />
           </div>
         </div>
         <div className={style.filterAndCards}>
-          <div >
-          <FilterAndOrder />
+          <div>
+            <FilterAndOrder />
           </div>
           <div className={style.cardsContainer}>
             {gamesToRender.slice(firstIndex, lastIndex).map((g) => (
-              <div key={g.id} onClick={() => getDetail(g.id)} className={style.cardContainer}>
+              <div
+                key={g.id}
+                onClick={() => getDetail(g.id)}
+                className={style.cardContainer}
+              >
                 <Link to={`/videogames/${g.id}`}>
                   <CardGame
                     id={g.id}
@@ -153,5 +156,5 @@ export default function Home() {
     )
   ) : (
     <NameNotFound resetHome={resetHome} />
-  ); 
+  );
 }

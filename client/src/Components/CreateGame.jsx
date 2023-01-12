@@ -32,7 +32,6 @@ export default function CreateGame() {
 
   useEffect(() => {
     if (gamesToRender.length === 0) {
-      dispatch(getAllVideogames());
       dispatch(getAllGenres());
     }
     dispatch(getPlatforms());

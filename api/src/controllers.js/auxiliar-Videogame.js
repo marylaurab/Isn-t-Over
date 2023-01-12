@@ -35,7 +35,7 @@ const getDbGames = async () => {
     const dbGames = await Videogame.findAll({
       include: {
         model: Genre,
-        as: "genres", //agregado
+        as: "genres", 
         attributes: ["name"],
         through: { attributes: [] },
       },
@@ -43,7 +43,7 @@ const getDbGames = async () => {
     for (let game of dbGames) {
       game.genres = game.genres?.map((g) => g.name);
     }
-    //agregado
+    
     return dbGames;
   } catch (error) {
     throw Error(error.message);
@@ -80,10 +80,10 @@ const getApiByName = async (nameGame) => {
 const getDbByName = async (nameGame) => {
   try {
     let gamesDbByName = await Videogame.findAll({
-      // where: { title: { [Op.substring]: nameGame } },
+      
       include: {
         model: Genre,
-        as: "genres", //agregado
+        as: "genres", 
         attributes: ["name"],
         through: { attributes: [] },
       },

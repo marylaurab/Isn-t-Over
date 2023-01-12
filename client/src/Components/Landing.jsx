@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import style from "../cssComponents/landing.module.css";
+
 const slides = ["game1.png", "game2.png", "game3.png"];
 
 export default function Landing() {

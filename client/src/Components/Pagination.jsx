@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import {
   setSubPages,
   prevSubPages,
@@ -17,14 +16,13 @@ export default function Pagination({ currentPage, totalPagesToRender }) {
   const dispatch = useDispatch();
 
   const currentSubPage = useSelector((state) => state.paginate.currentSubPage);
-  const indexes = useSelector((state) => state.paginate.indexes);
   const conditional = useSelector((state) => state.paginate.conditional);
   const renderSubPages = useSelector((state) => state.paginate.renderSubPages);
   const pages = useSelector((state) => state.paginate.pages);
 
   useEffect(() => {
     dispatch(setSubPages());
-   }, //[indexes]
+   }, 
    [currentPage]);
 
   const previosPage = () => {
